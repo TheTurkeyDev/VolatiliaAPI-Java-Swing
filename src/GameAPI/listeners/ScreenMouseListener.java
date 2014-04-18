@@ -5,20 +5,31 @@ import java.awt.event.MouseEvent;
 
 import GameAPI.screen.ScreenManager;
 import GameAPI.screen.util.Interactable;
+import GameAPI.util.Location;
 
 
 public class ScreenMouseListener extends MouseAdapter
 {
+	int x = 0, y = 0;
 	public void mouseClicked(MouseEvent e)
 	{
-		int xloc = e.getX();
-		int yloc = e.getY();
+		x = e.getX();
+		y = e.getY();
 		for(Interactable i: ScreenManager.getInstance().getCurrentScreen().getInteractables())
 		{
-			if(i.contains(xloc, yloc))
+			if(i.contains(x, y))
 			{
+				if(i.isClick())
+				{
+					i.setSelected(!i.isSelected());
+				}
 				ScreenManager.getInstance().getCurrentScreen().onClicked(i);
 			}
 		}
+	}
+	
+	public Location getLastClick()
+	{
+		return new Location(x ,y);
 	}
 }

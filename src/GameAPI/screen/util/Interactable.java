@@ -12,6 +12,8 @@ public class Interactable
 	private Image selected, unselected;
 
 	private boolean isSelected = false;
+	private boolean isHover = true;
+	private boolean isClick = false;
 
 	public Interactable(int Bx, int By, int BxSize, int BySize, Image SelectedImage, Image UnSelectedImage)
 	{
@@ -42,9 +44,13 @@ public class Interactable
 		return unselected;
 	}
 
-	public void isSelected(boolean toggle)
+	public void setSelected(boolean toggle)
 	{
 		isSelected = toggle;
+	}
+	public boolean isSelected()
+	{
+		return isSelected;
 	}
 
 	public Image getCurrentImage()
@@ -76,5 +82,22 @@ public class Interactable
 			return selected.getPixels();
 		else
 			return unselected.getPixels();
+	}
+	
+	public void setHover(boolean b)
+	{
+		isHover = b;
+	}
+	public void setClick(boolean b)
+	{
+		isClick = b;
+	}
+	public boolean isHover()
+	{
+		return isHover;
+	}
+	public boolean isClick()
+	{
+		return isClick;
 	}
 }

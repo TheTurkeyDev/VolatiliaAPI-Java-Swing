@@ -17,6 +17,8 @@ import GameAPI.screen.ScreenManager;
 public class GameAPI extends Canvas implements Runnable
 {
 	private static final long serialVersionUID = 1L;
+	
+	private static GameAPI api;
 
 	public static int width, height, scale;
 
@@ -36,6 +38,10 @@ public class GameAPI extends Canvas implements Runnable
 
 	private int gFrames = 0;
 	private int gUpdates = 0;
+	
+	public ScreenKeyListener KeyBoard = new ScreenKeyListener();
+	public ScreenMouseListener Mouse = new ScreenMouseListener();
+	public ScreenMouseMotionListener MouseMotion = new ScreenMouseMotionListener();
 
 	public GameAPI(String name, int w, int h, int s)
 	{
@@ -54,14 +60,15 @@ public class GameAPI extends Canvas implements Runnable
 		frame.setResizable(false);
 		frame.setTitle(frameName);
 		frame.add(this);
-		frame.addKeyListener(new ScreenKeyListener());
-		frame.addMouseListener(new ScreenMouseListener());
-		frame.addMouseMotionListener(new ScreenMouseMotionListener());
+		frame.addKeyListener(KeyBoard);
+		frame.addMouseListener(Mouse);
+		frame.addMouseMotionListener(MouseMotion);
 		frame.pack();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
 		sm = new ScreenManager();
+		api = this;
 	}
 
 	/*public static void main(String args[])
@@ -162,5 +169,10 @@ public class GameAPI extends Canvas implements Runnable
 	public ScreenManager getScreenManager()
 	{
 		return sm;
+	}
+	
+	public static GameAPI getAPI()
+	{
+		return api;
 	}
 }

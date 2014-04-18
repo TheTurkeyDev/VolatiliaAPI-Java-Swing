@@ -6,7 +6,8 @@ import GameAPI.screen.util.Interactable;
 
 public class Screen
 {
-
+	
+	private String name;
 	public int height, width;
 
 	public int[] pixels;
@@ -16,23 +17,16 @@ public class Screen
 	//private int offsetX = 0, offsetY = 0;
 
 
-	public Screen()
+	public Screen(String n)
 	{
+		name = n;
 		height = GameAPI.main.GameAPI.height;
 		width = GameAPI.main.GameAPI.width;
 		pixels = new int[width * height];
 	}
 
-	public void onMouseMove(int x, int y)
-	{
-
-	}
-
 	public void render()
 	{
-		for (int y = 0; y < height; y++)
-			for (int x = 0; x < width; x++)
-				pixels[width * y + x] = 0xF703CF;
 		renderAddonsTile();
 	}
 
@@ -44,21 +38,6 @@ public class Screen
 	}
 
 	public void onClicked(Interactable clicked)
-	{
-
-	}
-
-	public void onType(String Letter)
-	{
-
-	}
-
-	public void onPress(String Letter)
-	{
-
-	}
-
-	public void onDePress(String Letter)
 	{
 
 	}
@@ -91,5 +70,10 @@ public class Screen
 				}
 			}
 		}
+	}
+	
+	public String getName()
+	{
+		return name;
 	}
 }

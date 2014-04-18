@@ -1,67 +1,22 @@
 package GameAPI.listeners;
 
+import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 
-import GameAPI.screen.ScreenManager;
-
-
-public class ScreenKeyListener implements KeyListener
+public class ScreenKeyListener extends KeyAdapter
 {
-	String key;
+	private boolean[] keys = new boolean[65883];
 	public void keyReleased(KeyEvent e)
 	{
-		char keychar = e.getKeyChar();
-		String typedletter = Character.toString(keychar);
-		if((int)e.getKeyChar() == KeyEvent.VK_BACK_SPACE)
-	    {
-			typedletter = "delete";
-	    }
-		else if((int)e.getKeyChar() == KeyEvent.VK_ENTER)
-	    {
-			typedletter = "Enter";
-	    }
-		else if((int)e.getKeyChar() == KeyEvent.VK_1)
-	    {
-			GameAPI.main.GameAPI.displayInfo = !GameAPI.main.GameAPI.displayInfo;
-	    }
-		ScreenManager.getInstance().getCurrentScreen().onPress(typedletter);
+		keys[e.getKeyCode()] = false;
 	}
 	public void keyPressed(KeyEvent e)
 	{ 
-		char keychar = e.getKeyChar();
-		String typedletter = Character.toString(keychar);
-		if((int)e.getKeyChar() == KeyEvent.VK_BACK_SPACE)
-	    {  
-			typedletter = "delete";
-	    }
-		else if((int)e.getKeyChar() == KeyEvent.VK_ENTER)
-	    {  
-			typedletter = "Enter";
-	    }
-		else if((int)e.getKeyChar() == KeyEvent.VK_1)
-	    {
-			GameAPI.main.GameAPI.displayInfo = !GameAPI.main.GameAPI.displayInfo;
-	    }
-		ScreenManager.getInstance().getCurrentScreen().onDePress(typedletter);
+		keys[e.getKeyCode()] = true;
 	}
 	
-	public void keyTyped(KeyEvent e)
+	public boolean isKeyPressed(int key)
 	{
-		char keychar = e.getKeyChar();
-		String typedletter = Character.toString(keychar);
-		if((int)e.getKeyChar() == KeyEvent.VK_BACK_SPACE)
-	    {  
-			typedletter = "delete";
-	    }
-		else if((int)e.getKeyChar() == KeyEvent.VK_ENTER)
-	    {  
-			typedletter = "Enter";
-	    }
-		else if((int)e.getKeyChar() == KeyEvent.VK_1)
-	    {
-			GameAPI.main.GameAPI.displayInfo = !GameAPI.main.GameAPI.displayInfo;
-	    }
-		ScreenManager.getInstance().getCurrentScreen().onType(typedletter);
+		return keys[key];
 	}
 }
