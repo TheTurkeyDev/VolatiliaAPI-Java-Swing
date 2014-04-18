@@ -63,7 +63,6 @@ public class GameAPI extends Canvas implements Runnable
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
 		sm = new ScreenManager();
-		sm.setCurrentScreen(new Screen());
 	}
 
 	/*public static void main(String args[])

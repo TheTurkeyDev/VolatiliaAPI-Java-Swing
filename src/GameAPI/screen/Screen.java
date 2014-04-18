@@ -2,8 +2,6 @@ package GameAPI.screen;
 
 import java.util.ArrayList;
 
-import GameAPI.Images.Image;
-import GameAPI.screen.util.Button;
 import GameAPI.screen.util.Interactable;
 
 public class Screen
