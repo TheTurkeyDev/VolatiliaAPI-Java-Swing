@@ -12,7 +12,6 @@ import javax.swing.JFrame;
 import GameAPI.listeners.ScreenKeyListener;
 import GameAPI.listeners.ScreenMouseListener;
 import GameAPI.listeners.ScreenMouseMotionListener;
-import GameAPI.screen.Screen;
 import GameAPI.screen.ScreenManager;
 
 public class GameAPI extends Canvas implements Runnable
@@ -158,5 +157,10 @@ public class GameAPI extends Canvas implements Runnable
 		}
 		g.dispose();
 		bfs.show();
+	}
+	
+	public ScreenManager getScreenManager()
+	{
+		return sm;
 	}
 }
