@@ -7,12 +7,13 @@ import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
 
-import javax.swing.JFrame;
-
+import GameAPI.Images.Image;
 import GameAPI.listeners.ScreenKeyListener;
 import GameAPI.listeners.ScreenMouseListener;
 import GameAPI.listeners.ScreenMouseMotionListener;
+import GameAPI.screen.Screen;
 import GameAPI.screen.ScreenManager;
+import GameAPI.screen.util.Button;
 
 public class GameAPI extends Canvas implements Runnable
 {
@@ -23,7 +24,6 @@ public class GameAPI extends Canvas implements Runnable
 	public static int width, height, scale;
 
 	private Thread thread;
-	private JFrame frame;
 
 	private String frameName;
 
@@ -38,14 +38,9 @@ public class GameAPI extends Canvas implements Runnable
 
 	private int gFrames = 0;
 	private int gUpdates = 0;
-	
-	public ScreenKeyListener KeyBoard = new ScreenKeyListener();
-	public ScreenMouseListener Mouse = new ScreenMouseListener();
-	public ScreenMouseMotionListener MouseMotion = new ScreenMouseMotionListener();
 
 	public GameAPI(String name, int w, int h, int s)
 	{
-		frame = new JFrame();
 		width = w;
 		height = h;
 		scale = s;
@@ -54,28 +49,28 @@ public class GameAPI extends Canvas implements Runnable
 		Dimension size = new Dimension(width * scale, height * scale);
 		setPreferredSize(size);
 		frameName = name;
-		frame.setFocusable(true);
-		frame.requestFocus();
-		frame.requestFocusInWindow();
-		frame.setResizable(false);
-		frame.setTitle(frameName);
-		frame.add(this);
-		frame.addKeyListener(KeyBoard);
-		frame.addMouseListener(Mouse);
-		frame.addMouseMotionListener(MouseMotion);
-		frame.pack();
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setLocationRelativeTo(null);
-		frame.setVisible(true);
+		super.setName(frameName);
+		super.setFocusable(true);
+		super.requestFocusInWindow();
+		super.addKeyListener(new ScreenKeyListener());
+		super.addMouseListener(new ScreenMouseListener());
+		super.addMouseMotionListener(new ScreenMouseMotionListener());
 		sm = new ScreenManager();
 		api = this;
+		
+		//test();
 	}
-
-	/*public static void main(String args[])
+	
+	private void test()
 	{
-		GameAPI game = new GameAPI("GameAPI", 800, 600, 1);
-		game.start();
-	}*/
+		sm.addScreen(new Screen("test"));
+		sm.setCurrentScreen("test");
+		Image testImage = new Image(Image.getImage("/Images/BeginSelectedButton.png"));
+		Image testImageTwo = new Image(Image.getImage("/Images/BeginUnSelectedButton.png"));
+		Button testButton = new Button(100, 100, 250, 75, testImage, testImageTwo);
+		testButton.setHover(true);
+		sm.getCurrentScreen().addInteractable(testButton);
+	}
 
 	public synchronized void start()
 	{

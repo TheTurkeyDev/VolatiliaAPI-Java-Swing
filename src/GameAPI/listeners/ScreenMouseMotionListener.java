@@ -12,6 +12,7 @@ public class ScreenMouseMotionListener extends MouseMotionAdapter
 	int x = 0, y = 0;
 	public void mouseMoved(MouseEvent e) 
 	{
+		System.out.println("here");
 		x = e.getX();
 		y = e.getY();
 		for(Interactable i: ScreenManager.getInstance().getCurrentScreen().getInteractables())

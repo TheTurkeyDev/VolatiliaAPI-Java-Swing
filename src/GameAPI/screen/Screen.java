@@ -2,6 +2,7 @@ package GameAPI.screen;
 
 import java.util.ArrayList;
 
+import GameAPI.screen.subscreen.SubScreen;
 import GameAPI.screen.util.Interactable;
 
 public class Screen
@@ -13,6 +14,7 @@ public class Screen
 	public int[] pixels;
 
 	private ArrayList<Interactable> addons = new ArrayList<Interactable>();
+	private ArrayList<SubScreen> subScreens = new ArrayList<SubScreen>();
 
 	//private int offsetX = 0, offsetY = 0;
 
@@ -54,7 +56,6 @@ public class Screen
 
 	public void renderAddonsTile()
 	{
-
 		for(Interactable i: addons)
 		{
 			int [] image = i.getCurrentPixelArray();
@@ -66,6 +67,27 @@ public class Screen
 					{
 						if(image[xx + yy* i.getWidth()]!=16777215)
 						pixels[(i.getX()+xx)+(i.getY()+yy)*width]= image[xx + yy* i.getWidth()];
+					}
+				}
+			}
+		}
+	}
+	
+	public void renderSubScreens()
+	{
+		
+		for(SubScreen ss: subScreens)
+		{
+			ss.render();
+			int [] image = ss.pixels;
+			for(int xx=0;xx<ss.getWidth();xx++)
+			{
+				for(int yy=0;yy<ss.getHeight();yy++)
+				{
+					if(ss.getX()+yy>=0 && ss.getY()+yy<height && ss.getX()+xx>=0 && ss.getX()+xx<width)
+					{
+						if(image[xx + yy* ss.getWidth()]!=16777215)
+						pixels[(ss.getX()+xx)+(ss.getY()+yy)*width]= image[xx + yy* ss.getWidth()];
 					}
 				}
 			}
