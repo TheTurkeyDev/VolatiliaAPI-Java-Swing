@@ -23,7 +23,6 @@ public class Screen
 		height = GameAPI.main.GameAPI.height;
 		width = GameAPI.main.GameAPI.width;
 		pixels = new int[width * height];
-		addons.add(new Button( 100, 100, 250, 75, Image.BeginS, Image.BeginUS));
 	}
 
 	public void onMouseMove(int x, int y)

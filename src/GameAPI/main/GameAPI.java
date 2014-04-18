@@ -66,11 +66,11 @@ public class GameAPI extends Canvas implements Runnable
 		sm.setCurrentScreen(new Screen());
 	}
 
-	public static void main(String args[])
+	/*public static void main(String args[])
 	{
 		GameAPI game = new GameAPI("GameAPI", 800, 600, 1);
 		game.start();
-	}
+	}*/
 
 	public synchronized void start()
 	{

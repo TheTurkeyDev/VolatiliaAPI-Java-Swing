@@ -7,8 +7,6 @@ import javax.imageio.ImageIO;
 
 public class Image 
 {
-	public static Image BeginS = new Image(Image.getImage("BeginSelectedButton.png"));
-	public static Image BeginUS = new Image(Image.getImage("BeginUnSelectedButton.png"));
 	BufferedImage image;
 	
 	public Image(BufferedImage img)
@@ -16,9 +14,9 @@ public class Image
 		image = img;
 	}
 	
-	public static BufferedImage getImage(String name){
+	public static BufferedImage getImage(String path){
 		try {
-			return ImageIO.read(Image.class.getResource("/images/"+name));
+			return ImageIO.read(Image.class.getResource(path));
 		} catch (IOException e) {
 			return null;
 		}
