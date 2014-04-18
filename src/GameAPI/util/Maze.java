@@ -138,6 +138,16 @@ public class Maze
 				Inaccessible = false;
 			}
 		}
+		for (int y = 1; y < ySize - 1; y++)
+		{
+			for (int x = 1; x < xSize - 1; x++)
+			{
+				if(isWall(x, y) && numWallsAround(new Location(x,y)) == 2)
+				{
+					map[x][y] = nonWall;
+				}
+			}
+		}
 		pixels = new int[y2 * x2];
 		for (int y = 0; y < y2; y++)
 		{
@@ -166,22 +176,33 @@ public class Maze
 
 		int yes = 0;
 		if (north.getY() >= 0 && map[north.getX()][north.getY()] == nonWall)
-		{
 			yes++;
-		}
 		if (east.getX() < xSize && map[east.getX()][east.getY()] == nonWall)
-		{
 			yes++;
-		}
 		if (south.getY() < ySize && map[south.getX()][south.getY()] == nonWall)
-		{
 			yes++;
-		}
 		if (west.getX() >= 0 && map[west.getX()][west.getY()] == nonWall)
-		{
 			yes++;
-		}
 		return yes > 1;
+	}
+	
+	private int numWallsAround(Location loc)
+	{
+		Location north = loc.add(0, -1);
+		Location east = loc.add(1, 0);
+		Location south = loc.add(0, 1);
+		Location west = loc.add(-1, 0);
+
+		int yes = 0;
+		if (north.getY() >= 0 && map[north.getX()][north.getY()] == nonWall)
+			yes++;
+		if (east.getX() < xSize && map[east.getX()][east.getY()] == nonWall)
+			yes++;
+		if (south.getY() < ySize && map[south.getX()][south.getY()] == nonWall)
+			yes++;
+		if (west.getX() >= 0 && map[west.getX()][west.getY()] == nonWall)
+			yes++;
+		return yes;
 	}
 
 	public boolean isGenrated()

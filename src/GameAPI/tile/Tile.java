@@ -1,15 +1,15 @@
 package GameAPI.tile;
 
+import GameAPI.Images.Image;
 import GameAPI.screen.Screen;
-import GameAPI.sprite.Sprite;
 
 public class Tile
 {
 
 	public int x, y;
-	public Sprite sprite;
+	public Image sprite;
 	
-	public Tile(Sprite tileSprite)
+	public Tile(Image tileSprite)
 	{
 		sprite = tileSprite;
 	}

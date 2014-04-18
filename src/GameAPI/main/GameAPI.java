@@ -19,8 +19,7 @@ public class GameAPI extends Canvas implements Runnable
 {
 	private static final long serialVersionUID = 1L;
 
-	//width = 900, height = 506
-	public static int width = 800, height = 600, scale = 1;
+	public static int width, height, scale;
 
 	private Thread thread;
 	private JFrame frame;
@@ -31,17 +30,22 @@ public class GameAPI extends Canvas implements Runnable
 
 	public static boolean displayInfo = false;
 
-	private BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
-	private int[] pixels = ((DataBufferInt)image.getRaster().getDataBuffer()).getData();
+	private BufferedImage image;
+	private int[] pixels;
 
 	private ScreenManager sm;
 
 	private int gFrames = 0;
 	private int gUpdates = 0;
 
-	public GameAPI(String name)
+	public GameAPI(String name, int w, int h, int s)
 	{
 		frame = new JFrame();
+		width = w;
+		height = h;
+		scale = s;
+		image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+		pixels = ((DataBufferInt)image.getRaster().getDataBuffer()).getData();
 		Dimension size = new Dimension(width * scale, height * scale);
 		setPreferredSize(size);
 		frameName = name;
@@ -59,14 +63,13 @@ public class GameAPI extends Canvas implements Runnable
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
 		sm = new ScreenManager();
-		sm.setCurrentScreen(new Screen(width, height));
+		sm.setCurrentScreen(new Screen());
 	}
 
 	public static void main(String args[])
 	{
-		GameAPI game = new GameAPI("GameAPI");
+		GameAPI game = new GameAPI("GameAPI", 800, 600, 1);
 		game.start();
-
 	}
 
 	public synchronized void start()

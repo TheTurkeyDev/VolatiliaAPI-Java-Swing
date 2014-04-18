@@ -1,6 +1,6 @@
 package GameAPI.screen.util;
 
-import GameAPI.sprite.Sprite;
+import GameAPI.Images.Image;
 
 public class Button extends Interactable
 {
@@ -9,9 +9,9 @@ public class Button extends Interactable
 	int xSize;
 	int ySize;
 	boolean isSelected = false;
-	Sprite Selected, Unselected;
+	Image Selected, Unselected;
 	
-	public Button(int Bx, int By, int BxSize, int BySize, Sprite SelectedImage, Sprite UnSelectedImage)
+	public Button(int Bx, int By, int BxSize, int BySize, Image SelectedImage, Image UnSelectedImage)
 	{
 		super(Bx,By,BxSize,BySize,SelectedImage,UnSelectedImage);
 		x = Bx;
@@ -21,7 +21,7 @@ public class Button extends Interactable
 		Selected = SelectedImage;
 		Unselected = UnSelectedImage;
 	}
-	public Button(int Bx, int By, int BxSize, int BySize, Sprite SelectedImage)
+	public Button(int Bx, int By, int BxSize, int BySize, Image SelectedImage)
 	{
 		super(Bx,By,BxSize,BySize,SelectedImage,SelectedImage);
 		x = Bx;

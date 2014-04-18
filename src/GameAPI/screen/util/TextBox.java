@@ -1,6 +1,6 @@
 package GameAPI.screen.util;
 
-import GameAPI.sprite.Sprite;
+import GameAPI.Images.Image;
 
 public class TextBox 
 {
@@ -10,10 +10,10 @@ public class TextBox
 	int ySize;
 	int indent = 0;
 	boolean isSelected = false;
-	Sprite Selected, Unselected;
+	Image Selected, Unselected;
 	String text;
 	
-	public TextBox(int Bx, int By, int BxSize, int BySize, Sprite Image)
+	public TextBox(int Bx, int By, int BxSize, int BySize, Image Image)
 	{
 		x = Bx;
 		y = By;
@@ -21,7 +21,7 @@ public class TextBox
 		ySize = BySize;
 		Unselected = Image;
 	}
-	public TextBox(int Bx, int By, int BxSize, int BySize, Sprite SelectedImage, Sprite UnSelectedImage)
+	public TextBox(int Bx, int By, int BxSize, int BySize, Image SelectedImage, Image UnSelectedImage)
 	{
 		x = Bx;
 		y = By;
@@ -30,7 +30,7 @@ public class TextBox
 		Selected = SelectedImage;
 		Unselected = UnSelectedImage;
 	}
-	public TextBox(int Bx, int By, int BxSize, int BySize, int Indent, Sprite SelectedImage, Sprite UnSelectedImage)
+	public TextBox(int Bx, int By, int BxSize, int BySize, int Indent, Image SelectedImage, Image UnSelectedImage)
 	{
 		x = Bx;
 		y = By;

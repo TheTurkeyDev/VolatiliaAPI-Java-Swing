@@ -2,9 +2,9 @@ package GameAPI.screen;
 
 import java.util.ArrayList;
 
+import GameAPI.Images.Image;
+import GameAPI.screen.util.Button;
 import GameAPI.screen.util.Interactable;
-import GameAPI.tile.Tile;
-import GameAPI.util.Maze;
 
 public class Screen
 {
@@ -14,16 +14,16 @@ public class Screen
 	public int[] pixels;
 
 	private ArrayList<Interactable> addons = new ArrayList<Interactable>();
-	
-	Maze maze;
 
-	public Screen(int w, int h)
+	//private int offsetX = 0, offsetY = 0;
+
+
+	public Screen()
 	{
-		height = h;
-		width = w;
+		height = GameAPI.main.GameAPI.height;
+		width = GameAPI.main.GameAPI.width;
 		pixels = new int[width * height];
-		maze = new Maze();
-		maze.generate(true, 20, 15, 800, 600);
+		addons.add(new Button( 100, 100, 250, 75, Image.BeginS, Image.BeginUS));
 	}
 
 	public void onMouseMove(int x, int y)
@@ -35,7 +35,8 @@ public class Screen
 	{
 		for (int y = 0; y < height; y++)
 			for (int x = 0; x < width; x++)
-				pixels[width * y + x] = maze.getPixels()[width * y + x];
+				pixels[width * y + x] = 0xF703CF;
+		renderAddonsTile();
 	}
 
 	public void clear()
@@ -75,16 +76,22 @@ public class Screen
 		return addons;
 	}
 
-	public void renderTile(int xp, int yp, Tile tile)
+	public void renderAddonsTile()
 	{
-		for (int y = 0; y < tile.sprite.getSize(); y++)
+
+		for(Interactable i: addons)
 		{
-			int ya = yp + y;
-			for (int x = 0; x < tile.sprite.getSize(); x++)
+			int [] image = i.getCurrentPixelArray();
+			for(int xx=0;xx<i.getWidth();xx++)
 			{
-				int xa = xp + x;
-				if (xa < 0 || xa >= width || ya < 0 || ya >= width) break;
-				pixels[width * ya + xa] = tile.sprite.pixels[x][y];
+				for(int yy=0;yy<i.getHeight();yy++)
+				{
+					if(i.getX()+yy>=0 && i.getY()+yy<height && i.getX()+xx>=0 && i.getX()+xx<width)
+					{
+						if(image[xx + yy* i.getWidth()]!=16777215)
+						pixels[(i.getX()+xx)+(i.getY()+yy)*width]= image[xx + yy* i.getWidth()];
+					}
+				}
 			}
 		}
 	}
