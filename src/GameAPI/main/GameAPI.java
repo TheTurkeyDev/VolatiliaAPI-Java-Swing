@@ -19,7 +19,7 @@ import GameAPI.screen.util.Button;
 public class GameAPI extends Canvas implements Runnable
 {
 	private static final long serialVersionUID = 1L;
-	
+
 	private static GameAPI api;
 
 	public static int width, height, scale;
@@ -58,10 +58,10 @@ public class GameAPI extends Canvas implements Runnable
 		pixels = ((DataBufferInt)image.getRaster().getDataBuffer()).getData();
 		sm = new ScreenManager();
 		api = this;
-		
+
 		//test();
 	}
-	
+
 	private void test()
 	{
 		sm.addScreen(new Screen("test"));
@@ -126,7 +126,10 @@ public class GameAPI extends Canvas implements Runnable
 
 	public void update()
 	{
-
+		try
+		{
+			sm.getCurrentScreen().update();
+		}catch(NullPointerException e){}
 	}
 
 	public void render()
@@ -143,7 +146,7 @@ public class GameAPI extends Canvas implements Runnable
 		{
 			sm.getCurrentScreen().clear();
 			sm.getCurrentScreen().render();
-		}catch(NullPointerException e){System.out.println("Screen is null!!");}
+		}catch(NullPointerException e){if(sm.getCurrentScreen()== null)System.out.println("Screen is null!!"); else e.printStackTrace();}
 
 		for(int y = 0; y < sm.getCurrentScreen().height; y++)
 		{
@@ -163,12 +166,12 @@ public class GameAPI extends Canvas implements Runnable
 		g.dispose();
 		bfs.show();
 	}
-	
+
 	public ScreenManager getScreenManager()
 	{
 		return sm;
 	}
-	
+
 	public static GameAPI getAPI()
 	{
 		return api;

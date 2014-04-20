@@ -29,6 +29,10 @@ public class Screen
 		pixels = new int[width * height];
 	}
 
+	public void update()
+	{
+		
+	}
 	public void render()
 	{
 		renderAddonsTile();

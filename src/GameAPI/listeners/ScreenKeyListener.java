@@ -5,7 +5,8 @@ import java.awt.event.KeyEvent;
 
 public class ScreenKeyListener extends KeyAdapter
 {
-	private boolean[] keys = new boolean[65883];
+	private static boolean[] keys = new boolean[65883];
+	
 	public void keyReleased(KeyEvent e)
 	{
 		keys[e.getKeyCode()] = false;
@@ -15,7 +16,7 @@ public class ScreenKeyListener extends KeyAdapter
 		keys[e.getKeyCode()] = true;
 	}
 	
-	public boolean isKeyPressed(int key)
+	public static boolean isKeyPressed(int key)
 	{
 		return keys[key];
 	}

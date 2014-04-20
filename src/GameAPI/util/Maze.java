@@ -37,37 +37,37 @@ public class Maze
 			}
 		}
 
-		map[0][0] = nonWall;
-		currentX = 0;
-		currentY = 0;
+		map[1][1] = nonWall;
+		currentX = 1;
+		currentY = 1;
 		Location current = new Location(currentX, currentY);
 		Location north = current.add(0, -1);
 		Location east = current.add(1, 0);
 		Location south = current.add(0, 1);
 		Location west = current.add(-1, 0);
 
-		if ((north.getY() >= 0) && (map[north.getX()][north.getY()] == wall))
+		if ((north.getY() > 0) && (map[north.getX()][north.getY()] == wall))
 		{
 			if(multiple)
 				walls.add(north);
 			else if((map[north.getX()][(north.getY() - 1)] == wall))
 				walls.add(north);
 		}
-		if ((east.getX()<= xSize) && (map[east.getX()][east.getY()] == wall))
+		if ((east.getX()< xSize) && (map[east.getX()][east.getY()] == wall))
 		{
 			if(multiple)
 				walls.add(east);
 			else if((map[(east.getX() + 1)][east.getY()] == wall))
 				walls.add(east);
 		}
-		if ((south.getY()<= ySize) && (map[south.getX()][south.getY()] == wall))
+		if ((south.getY()< ySize) && (map[south.getX()][south.getY()] == wall))
 		{
 			if(multiple)
 				walls.add(south);
 			else if((map[south.getX()][(south.getY() + 1)] == wall))
 				walls.add(south);
 		}
-		if ((west.getX() >= 0) && (map[west.getX()][west.getY()] == wall))
+		if ((west.getX() > 0) && (map[west.getX()][west.getY()] == wall))
 		{
 			if(multiple)
 				walls.add(west);
