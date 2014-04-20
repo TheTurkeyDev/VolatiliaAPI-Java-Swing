@@ -68,7 +68,7 @@ public class GameAPI extends Canvas implements Runnable
 		sm.setCurrentScreen("test");
 		Image testImage = new Image(Image.getImage("/Images/BeginSelectedButton.png"));
 		Image testImageTwo = new Image(Image.getImage("/Images/BeginUnSelectedButton.png"));
-		Button testButton = new Button(100, 100, 250, 75, testImage, testImageTwo);
+		Button testButton = new Button(100, 100, 250, 75, testImage, testImageTwo, "testButton");
 		testButton.setHover(true);
 		StandAloneImage sai = new StandAloneImage(testImage, 200, 200);
 		sm.getCurrentScreen().addInteractable(testButton);

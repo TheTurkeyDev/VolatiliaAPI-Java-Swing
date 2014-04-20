@@ -5,17 +5,19 @@ import GameAPI.Images.Image;
 
 public class Interactable
 {
-	private int x;
-	private int y;
-	private int xSize;
-	private int ySize;
-	private Image selected, unselected;
+	protected int x;
+	protected int y;
+	protected int xSize;
+	protected int ySize;
+	protected Image selected, unselected;
 
-	private boolean isSelected = false;
-	private boolean isHover = true;
-	private boolean isClick = false;
+	protected boolean isSelected = false;
+	protected boolean isHover = true;
+	protected boolean isClick = false;
+	
+	protected String name;
 
-	public Interactable(int Bx, int By, int BxSize, int BySize, Image SelectedImage, Image UnSelectedImage)
+	public Interactable(int Bx, int By, int BxSize, int BySize, Image SelectedImage, Image UnSelectedImage, String n)
 	{
 		x = Bx;
 		y = By;
@@ -23,6 +25,7 @@ public class Interactable
 		ySize = BySize;
 		selected = SelectedImage;
 		unselected = UnSelectedImage;
+		name = n;
 	}
 
 	public boolean contains(int mX, int mY)
@@ -99,5 +102,10 @@ public class Interactable
 	public boolean isClick()
 	{
 		return isClick;
+	}
+	
+	public String getName()
+	{
+		return name;
 	}
 }
