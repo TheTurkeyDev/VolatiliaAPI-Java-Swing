@@ -8,6 +8,7 @@ import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
 
 import GameAPI.Images.Image;
+import GameAPI.Images.StandAloneImage;
 import GameAPI.listeners.ScreenKeyListener;
 import GameAPI.listeners.ScreenMouseListener;
 import GameAPI.listeners.ScreenMouseMotionListener;
@@ -58,7 +59,7 @@ public class GameAPI extends Canvas implements Runnable
 		sm = new ScreenManager();
 		api = this;
 		
-		//test();
+		test();
 	}
 	
 	private void test()
@@ -69,7 +70,9 @@ public class GameAPI extends Canvas implements Runnable
 		Image testImageTwo = new Image(Image.getImage("/Images/BeginUnSelectedButton.png"));
 		Button testButton = new Button(100, 100, 250, 75, testImage, testImageTwo);
 		testButton.setHover(true);
+		StandAloneImage sai = new StandAloneImage(testImage, 200, 200);
 		sm.getCurrentScreen().addInteractable(testButton);
+		sm.getCurrentScreen().addStandAloneImage(sai);
 	}
 
 	public synchronized void start()

@@ -7,11 +7,14 @@ import javax.imageio.ImageIO;
 
 public class Image 
 {
-	BufferedImage image;
+	private BufferedImage image;
+	private int width, height;
 	
 	public Image(BufferedImage img)
 	{
 		image = img;
+		width = img.getWidth();
+		height = img.getHeight();
 	}
 	
 	public static BufferedImage getImage(String path){
@@ -37,6 +40,15 @@ public class Image
 	public BufferedImage getSubImage(int x, int y, int xsize, int ysize)
 	{
 		return image.getSubimage(x, y, xsize, ysize);
+	}
+	
+	public int getWidth()
+	{
+		return width;
+	}
+	public int getHeight()
+	{
+		return height;
 	}
 	
 }
