@@ -17,6 +17,7 @@ public class Image
 		height = img.getHeight();
 	}
 	
+	@Deprecated
 	public static BufferedImage getImage(String path){
 		try {
 			return ImageIO.read(Image.class.getResource(path));

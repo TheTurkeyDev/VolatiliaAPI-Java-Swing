@@ -45,8 +45,6 @@ public class GameAPI extends Canvas implements Runnable
 		width = w;
 		height = h;
 		scale = s;
-		image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
-		pixels = ((DataBufferInt)image.getRaster().getDataBuffer()).getData();
 		Dimension size = new Dimension(width * scale, height * scale);
 		setPreferredSize(size);
 		frameName = name;
@@ -56,10 +54,12 @@ public class GameAPI extends Canvas implements Runnable
 		super.addKeyListener(new ScreenKeyListener());
 		super.addMouseListener(new ScreenMouseListener());
 		super.addMouseMotionListener(new ScreenMouseMotionListener());
+		image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+		pixels = ((DataBufferInt)image.getRaster().getDataBuffer()).getData();
 		sm = new ScreenManager();
 		api = this;
 		
-		test();
+		//test();
 	}
 	
 	private void test()

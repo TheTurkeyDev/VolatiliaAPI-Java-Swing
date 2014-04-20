@@ -13,7 +13,6 @@ public class ScreenMouseListener extends MouseAdapter
 	int x = 0, y = 0;
 	public void mouseClicked(MouseEvent e)
 	{
-		System.out.println("here1");
 		x = e.getX();
 		y = e.getY();
 		for(Interactable i: ScreenManager.getInstance().getCurrentScreen().getInteractables())

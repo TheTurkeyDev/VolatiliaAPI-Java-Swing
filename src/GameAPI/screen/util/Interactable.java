@@ -69,11 +69,11 @@ public class Interactable
 
 	public int getX()
 	{
-		return y;
+		return x;
 	}
 	public int getY()
 	{
-		return x;
+		return y;
 	}
 
 	public int[] getCurrentPixelArray()

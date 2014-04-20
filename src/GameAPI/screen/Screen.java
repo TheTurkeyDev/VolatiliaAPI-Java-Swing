@@ -57,7 +57,7 @@ public class Screen
 			{
 				for(int yy=0;yy<i.getHeight();yy++)
 				{
-					if(i.getX()+yy>=0 && i.getY()+yy<height && i.getX()+xx>=0 && i.getX()+xx<width)
+					if(i.getY()+yy>=0 && i.getY()+yy<height && i.getX()+xx>=0 && i.getX()+xx<width)
 					{
 						if(image[xx + yy* i.getWidth()]!=16777215)
 							pixels[(i.getX()+xx)+(i.getY()+yy)*width]= image[xx + yy* i.getWidth()];
@@ -78,7 +78,7 @@ public class Screen
 				{
 					for(int yy=0;yy<i.getImage().getHeight();yy++)
 					{
-						if(i.getX()+yy>=0 && i.getY()+yy<height && i.getX()+xx>=0 && i.getX()+xx<width)
+						if(i.getY()+yy>=0 && i.getY()+yy<height && i.getX()+xx>=0 && i.getX()+xx<width)
 						{
 							if(image[xx + yy* i.getImage().getWidth()]!=16777215)
 								pixels[(i.getX()+xx)+(i.getY()+yy)*width]= image[xx + yy* i.getImage().getWidth()];
@@ -100,7 +100,7 @@ public class Screen
 			{
 				for(int yy=0;yy<ss.getHeight();yy++)
 				{
-					if(ss.getX()+yy>=0 && ss.getY()+yy<height && ss.getX()+xx>=0 && ss.getX()+xx<width)
+					if(ss.getY()+yy>=0 && ss.getY()+yy<height && ss.getX()+xx>=0 && ss.getX()+xx<width)
 					{
 						if(image[xx + yy* ss.getWidth()]!=16777215)
 							pixels[(ss.getX()+xx)+(ss.getY()+yy)*width]= image[xx + yy* ss.getWidth()];
