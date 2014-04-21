@@ -6,6 +6,7 @@ import java.util.Random;
 public class Maze
 {
 	private int xSize; private int ySize;
+	private int width; private int height;
 	private int[][] map;
 	private int[] pixels;
 	private ArrayList<Location> walls = new ArrayList<Location>();
@@ -148,18 +149,20 @@ public class Maze
 				}
 			}
 		}
-		pixels = new int[y2 * x2];
-		for (int y = 0; y < y2; y++)
+		height = ySize*y2;
+		width = xSize*x2;
+		pixels = new int[height * width];
+		for (int y = 0; y < height; y++)
 		{
-			for (int x = 0; x < x2; x++)
+			for (int x = 0; x < width; x++)
 			{
-				if(map[x/40][y/40] == wall)
+				if(map[x/x2][y/y2] == wall)
 				{
-					pixels[x2 * y + x] = 0x000000;
+					pixels[width * y + x] = 0x000000;
 				}
 				else
 				{
-					pixels[x2 * y + x] = 0xC0C0C0;
+					pixels[width * y + x] = 0xC0C0C0;
 				}
 				
 			}
@@ -263,5 +266,14 @@ public class Maze
 			}
 		}
 		return new Location(x, y);
+	}
+	
+	public int getWidth()
+	{
+		return width;
+	}
+	public int getHeight()
+	{
+		return height;
 	}
 }

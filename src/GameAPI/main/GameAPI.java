@@ -126,10 +126,7 @@ public class GameAPI extends Canvas implements Runnable
 
 	public void update()
 	{
-		try
-		{
-			sm.getCurrentScreen().update();
-		}catch(NullPointerException e){}
+		sm.getCurrentScreen().update();
 	}
 
 	public void render()
