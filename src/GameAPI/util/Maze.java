@@ -20,6 +20,7 @@ public class Maze
 	private int wall = 1;
 
 	private boolean generated = false;
+	private boolean multiplePaths;
 
 	public int[] getPixels()
 	{
@@ -28,6 +29,7 @@ public class Maze
 
 	public void generate(boolean multiple, int x1, int y1, int x2, int y2)
 	{
+		multiplePaths = multiple;
 		xSize = x1;
 		ySize = y1;
 		xWallScale = x2;
@@ -50,40 +52,32 @@ public class Maze
 		Location south = current.add(0, 1);
 		Location west = current.add(-1, 0);
 
-		if ((north.getY() > 0) && (map[north.getX()][north.getY()] == wall))
+		if ((north.getY() > 0) && (map[(int) north.getX()][(int) north.getY()] == wall))
 		{
-			if(multiple)
-				walls.add(north);
-			else if((map[north.getX()][(north.getY() - 1)] == wall))
+			if(multiplePaths || (map[(int) north.getX()][(int) (north.getY() - 1)] == wall))
 				walls.add(north);
 		}
-		if ((east.getX()< xSize) && (map[east.getX()][east.getY()] == wall))
+		if ((east.getX()< xSize) && (map[(int) east.getX()][(int) east.getY()] == wall))
 		{
-			if(multiple)
-				walls.add(east);
-			else if((map[(east.getX() + 1)][east.getY()] == wall))
+			if(multiplePaths || (map[(int) (east.getX() + 1)][(int) east.getY()] == wall))
 				walls.add(east);
 		}
-		if ((south.getY()< ySize) && (map[south.getX()][south.getY()] == wall))
+		if ((south.getY()< ySize) && (map[(int) south.getX()][(int) south.getY()] == wall))
 		{
-			if(multiple)
-				walls.add(south);
-			else if((map[south.getX()][(south.getY() + 1)] == wall))
+			if(multiplePaths || (map[(int) south.getX()][(int) (south.getY() + 1)] == wall))
 				walls.add(south);
 		}
-		if ((west.getX() > 0) && (map[west.getX()][west.getY()] == wall))
+		if ((west.getX() > 0) && (map[(int) west.getX()][(int) west.getY()] == wall))
 		{
-			if(multiple)
-				walls.add(west);
-			else if((map[(west.getX() - 1)][west.getY()] == wall))
+			if(multiplePaths || (map[(int) (west.getX() - 1)][(int) west.getY()] == wall))
 				walls.add(west);
 		}
 
 		while (walls.size() > 0)
 		{
 			int randomLoc = r.nextInt(walls.size());
-			currentX = ((Location)walls.get(randomLoc)).getX();
-			currentY = ((Location)walls.get(randomLoc)).getY();
+			currentX = (int) ((Location)walls.get(randomLoc)).getX();
+			currentY = (int) ((Location)walls.get(randomLoc)).getY();
 			current = new Location(currentX, currentY);
 			north = current.add(0, -1);
 			east = current.add(1, 0);
@@ -95,32 +89,24 @@ public class Maze
 				map[currentX][currentY] = nonWall;
 				walls.remove(randomLoc);
 
-				if ((north.getY() - 1 > 0) && (map[north.getX()][north.getY()] == wall))
+				if ((north.getY() - 1 > 0) && (map[(int) north.getX()][(int) north.getY()] == wall))
 				{
-					if(multiple)
-						walls.add(north);
-					else if((map[north.getX()][(north.getY() - 1)] == wall))
+					if(multiplePaths || (map[(int) north.getX()][(int) (north.getY() - 1)] == wall))
 						walls.add(north);
 				}
-				if ((east.getX() + 1 < xSize) && (map[east.getX()][east.getY()] == wall))
+				if ((east.getX() + 1 < xSize) && (map[(int) east.getX()][(int) east.getY()] == wall))
 				{
-					if(multiple)
-						walls.add(east);
-					else if((map[(east.getX() + 1)][east.getY()] == wall))
+					if(multiplePaths || (map[(int) (east.getX() + 1)][(int) east.getY()] == wall))
 						walls.add(east);
 				}
-				if ((south.getY() + 1 < ySize) && (map[south.getX()][south.getY()] == wall))
+				if ((south.getY() + 1 < ySize) && (map[(int) south.getX()][(int) south.getY()] == wall))
 				{
-					if(multiple)
-						walls.add(south);
-					else if((map[south.getX()][(south.getY() + 1)] == wall))
+					if(multiplePaths || (map[(int) south.getX()][(int) (south.getY() + 1)] == wall))
 						walls.add(south);
 				}
-				if ((west.getX() - 1 > 0) && (map[west.getX()][west.getY()] == wall))
+				if ((west.getX() - 1 > 0) && (map[(int) west.getX()][(int) west.getY()] == wall))
 				{
-					if(multiple)
-						walls.add(west);
-					else if((map[(west.getX() - 1)][west.getY()] == wall))
+					if(multiplePaths || (map[(int) (west.getX() - 1)][(int) west.getY()] == wall))
 						walls.add(west);
 				}
 			}
@@ -129,7 +115,7 @@ public class Maze
 				walls.remove(randomLoc);
 			}
 		}
-		map[18][13] = nonWall;
+		/*map[18][13] = nonWall;
 		boolean Inaccessible = true;
 		int i = 1;
 		while (Inaccessible)
@@ -141,14 +127,14 @@ public class Maze
 			{
 				Inaccessible = false;
 			}
-		}
-		if(multiple)
+		}*/
+		if(multiplePaths)
 		{
 			for (int y = 1; y < ySize - 1; y++)
 			{
 				for (int x = 1; x < xSize - 1; x++)
 				{
-					if(isWall(x, y) && numWallsAround(new Location(x,y)) == 2)
+					if(isWall(x, y) && canRemoveWall(new Location(x,y)))
 					{
 						map[x][y] = nonWall;
 					}
@@ -157,6 +143,12 @@ public class Maze
 		}
 		height = ySize*yWallScale;
 		width = xSize*xWallScale;
+		render();
+		generated = true;
+	}
+
+	private void render()
+	{
 		pixels = new int[height * width];
 		for (int y = 0; y < height; y++)
 		{
@@ -173,7 +165,6 @@ public class Maze
 
 			}
 		}
-		generated = true;
 	}
 
 	private boolean checkwalls(Location loc)
@@ -195,23 +186,21 @@ public class Maze
 		return yes > 1;
 	}
 
-	private int numWallsAround(Location loc)
-	{
-		Location north = loc.add(0, -1);
-		Location east = loc.add(1, 0);
-		Location south = loc.add(0, 1);
-		Location west = loc.add(-1, 0);
+	private boolean canRemoveWall(Location loc)
+	{	
+		boolean northB = isWall(loc.add(0, -1).getX(), loc.add(0, -1).getY());
+		boolean eastB = isWall(loc.add(1, 0).getX(), loc.add(1, 0).getY());
+		boolean southB = isWall(loc.add(0, 1).getX(), loc.add(0, 1).getY());
+		boolean westB = isWall(loc.add(-1, 0).getX(), loc.add(-1, 0).getY());
+		int percentChance = 50;
 
-		int yes = 0;
-		if (north.getY() >= 0 && map[north.getX()][north.getY()] == nonWall)
-			yes++;
-		if (east.getX() < xSize && map[east.getX()][east.getY()] == nonWall)
-			yes++;
-		if (south.getY() < ySize && map[south.getX()][south.getY()] == nonWall)
-			yes++;
-		if (west.getX() >= 0 && map[west.getX()][west.getY()] == nonWall)
-			yes++;
-		return yes;
+		if((northB && southB) && !eastB && !westB)
+			if(r.nextInt(100)+1 < percentChance)
+				return true;
+		else if((eastB && westB) && !northB && !southB)
+			if(r.nextInt(100)+1 < percentChance)
+				return true;
+		return false;
 	}
 
 	public boolean isGenrated()
@@ -282,7 +271,7 @@ public class Maze
 	{
 		return height;
 	}
-	
+
 	public int getxWallScale()
 	{
 		return xWallScale;

@@ -1,22 +1,19 @@
 package GameAPI.main;
 
-import java.awt.Canvas;
 import java.awt.Dimension;
 import java.awt.Graphics;
-import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
 
-import GameAPI.Images.Image;
-import GameAPI.Images.StandAloneImage;
+import javax.swing.JPanel;
+
 import GameAPI.listeners.ScreenKeyListener;
 import GameAPI.listeners.ScreenMouseListener;
 import GameAPI.listeners.ScreenMouseMotionListener;
-import GameAPI.screen.Screen;
 import GameAPI.screen.ScreenManager;
-import GameAPI.screen.util.Button;
+import GameAPI.screen.TestScreen;
 
-public class GameAPI extends Canvas implements Runnable
+public class GameAPI extends JPanel implements Runnable
 {
 	private static final long serialVersionUID = 1L;
 
@@ -59,20 +56,13 @@ public class GameAPI extends Canvas implements Runnable
 		sm = new ScreenManager();
 		api = this;
 
-		//test();
+		test();
 	}
 
 	private void test()
 	{
-		sm.addScreen(new Screen("test"));
-		sm.setCurrentScreen("test");
-		Image testImage = new Image(Image.getImage("/Images/BeginSelectedButton.png"));
-		Image testImageTwo = new Image(Image.getImage("/Images/BeginUnSelectedButton.png"));
-		Button testButton = new Button(100, 100, 250, 75, testImage, testImageTwo, "testButton");
-		testButton.setHover(true);
-		StandAloneImage sai = new StandAloneImage(testImage, 200, 200);
-		sm.getCurrentScreen().addInteractable(testButton);
-		sm.getCurrentScreen().addStandAloneImage(sai);
+		sm.addScreen(new TestScreen("Test Screen"));
+		sm.setCurrentScreen("Test Screen");
 	}
 
 	public synchronized void start()
@@ -110,7 +100,7 @@ public class GameAPI extends Canvas implements Runnable
 				updates++;
 				delta--;
 			}
-			render();
+			repaint();
 			frames++;
 
 			if(System.currentTimeMillis() - timer > 1000)
@@ -129,19 +119,12 @@ public class GameAPI extends Canvas implements Runnable
 		sm.getCurrentScreen().update();
 	}
 
-	public void render()
+	public void paint(Graphics g)
 	{
-		BufferStrategy bfs = getBufferStrategy();
-
-		if(bfs == null)
-		{
-			createBufferStrategy(3);
-			return;
-		}
-
 		try
 		{
-			sm.getCurrentScreen().clear();
+			// As long as the full size of the screen is being rendered out this isn't needed
+			//sm.getCurrentScreen().clear();
 			sm.getCurrentScreen().render();
 		}catch(NullPointerException e){if(sm.getCurrentScreen()== null)System.out.println("Screen is null!!"); else e.printStackTrace();}
 
@@ -154,14 +137,11 @@ public class GameAPI extends Canvas implements Runnable
 		}
 
 
-		Graphics g = bfs.getDrawGraphics();
 		g.drawImage(image, 0, 0, getWidth(), getHeight(), null);
 		if(displayInfo)
 		{
 			g.drawString(gUpdates + " ups, " + gFrames + " Frames", 0, 10);
 		}
-		g.dispose();
-		bfs.show();
 	}
 
 	public ScreenManager getScreenManager()
