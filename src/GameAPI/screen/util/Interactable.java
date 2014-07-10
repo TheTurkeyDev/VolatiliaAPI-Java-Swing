@@ -15,6 +15,8 @@ public class Interactable
 	protected boolean isHover = true;
 	protected boolean isClick = false;
 	
+	protected boolean isVisible = true;
+	
 	protected String name;
 
 	public Interactable(int Bx, int By, int BxSize, int BySize, Image SelectedImage, Image UnSelectedImage, String n)
@@ -102,6 +104,19 @@ public class Interactable
 	public boolean isClick()
 	{
 		return isClick;
+	}
+	
+	public void show()
+	{
+		isVisible = true;
+	}
+	public void hide()
+	{
+		isVisible = false;
+	}
+	public boolean isVisible()
+	{
+		return isVisible;
 	}
 	
 	public String getName()

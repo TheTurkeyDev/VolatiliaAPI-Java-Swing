@@ -7,6 +7,7 @@ public class Maze
 {
 	private int xSize; private int ySize;
 	private int width; private int height;
+	private int xWallScale, yWallScale;
 	private int[][] map;
 	private int[] pixels;
 	private ArrayList<Location> walls = new ArrayList<Location>();
@@ -19,7 +20,7 @@ public class Maze
 	private int wall = 1;
 
 	private boolean generated = false;
-	
+
 	public int[] getPixels()
 	{
 		return pixels;
@@ -29,6 +30,8 @@ public class Maze
 	{
 		xSize = x1;
 		ySize = y1;
+		xWallScale = x2;
+		yWallScale = y2;
 		map = new int[xSize][ySize];
 		for (int y = 0; y < ySize; y++)
 		{
@@ -92,28 +95,28 @@ public class Maze
 				map[currentX][currentY] = nonWall;
 				walls.remove(randomLoc);
 
-				if ((north.getY() - 1 >= 0) && (map[north.getX()][north.getY()] == wall))
+				if ((north.getY() - 1 > 0) && (map[north.getX()][north.getY()] == wall))
 				{
 					if(multiple)
 						walls.add(north);
 					else if((map[north.getX()][(north.getY() - 1)] == wall))
 						walls.add(north);
 				}
-				if ((east.getX() + 1 <= xSize) && (map[east.getX()][east.getY()] == wall))
+				if ((east.getX() + 1 < xSize) && (map[east.getX()][east.getY()] == wall))
 				{
 					if(multiple)
 						walls.add(east);
 					else if((map[(east.getX() + 1)][east.getY()] == wall))
 						walls.add(east);
 				}
-				if ((south.getY() + 1 <= ySize) && (map[south.getX()][south.getY()] == wall))
+				if ((south.getY() + 1 < ySize) && (map[south.getX()][south.getY()] == wall))
 				{
 					if(multiple)
 						walls.add(south);
 					else if((map[south.getX()][(south.getY() + 1)] == wall))
 						walls.add(south);
 				}
-				if ((west.getX() - 1 >= 0) && (map[west.getX()][west.getY()] == wall))
+				if ((west.getX() - 1 > 0) && (map[west.getX()][west.getY()] == wall))
 				{
 					if(multiple)
 						walls.add(west);
@@ -139,24 +142,27 @@ public class Maze
 				Inaccessible = false;
 			}
 		}
-		for (int y = 1; y < ySize - 1; y++)
+		if(multiple)
 		{
-			for (int x = 1; x < xSize - 1; x++)
+			for (int y = 1; y < ySize - 1; y++)
 			{
-				if(isWall(x, y) && numWallsAround(new Location(x,y)) == 2)
+				for (int x = 1; x < xSize - 1; x++)
 				{
-					map[x][y] = nonWall;
+					if(isWall(x, y) && numWallsAround(new Location(x,y)) == 2)
+					{
+						map[x][y] = nonWall;
+					}
 				}
 			}
 		}
-		height = ySize*y2;
-		width = xSize*x2;
+		height = ySize*yWallScale;
+		width = xSize*xWallScale;
 		pixels = new int[height * width];
 		for (int y = 0; y < height; y++)
 		{
 			for (int x = 0; x < width; x++)
 			{
-				if(map[x/x2][y/y2] == wall)
+				if(map[x/xWallScale][y/yWallScale] == wall)
 				{
 					pixels[width * y + x] = 0x000000;
 				}
@@ -164,7 +170,7 @@ public class Maze
 				{
 					pixels[width * y + x] = 0xC0C0C0;
 				}
-				
+
 			}
 		}
 		generated = true;
@@ -188,7 +194,7 @@ public class Maze
 			yes++;
 		return yes > 1;
 	}
-	
+
 	private int numWallsAround(Location loc)
 	{
 		Location north = loc.add(0, -1);
@@ -215,10 +221,10 @@ public class Maze
 
 	public boolean isWall(int x, int y, int size)
 	{
-		int x1 = x / 40;
-		int x2 = (x + size) / 40;
-		int y1 = y / 40;
-		int y2 = (y + size) / 40;
+		int x1 = x / xWallScale;
+		int x2 = (x + size) / xWallScale;
+		int y1 = y / yWallScale;
+		int y2 = (y + size) / yWallScale;
 
 		if (map[x1][y1] == wall)
 		{
@@ -267,7 +273,7 @@ public class Maze
 		}
 		return new Location(x, y);
 	}
-	
+
 	public int getWidth()
 	{
 		return width;
@@ -275,5 +281,14 @@ public class Maze
 	public int getHeight()
 	{
 		return height;
+	}
+	
+	public int getxWallScale()
+	{
+		return xWallScale;
+	}
+	public int getyWallScale()
+	{
+		return yWallScale;
 	}
 }

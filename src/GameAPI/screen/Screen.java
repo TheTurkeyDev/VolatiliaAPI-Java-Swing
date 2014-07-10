@@ -3,8 +3,11 @@ package GameAPI.screen;
 import java.util.ArrayList;
 
 import GameAPI.Images.StandAloneImage;
+import GameAPI.main.GameAPI;
 import GameAPI.screen.subscreen.SubScreen;
 import GameAPI.screen.util.Interactable;
+import GameAPI.util.Location;
+
 
 public class Screen
 {
@@ -24,14 +27,14 @@ public class Screen
 	public Screen(String n)
 	{
 		name = n;
-		height = GameAPI.main.GameAPI.height;
-		width = GameAPI.main.GameAPI.width;
+		height = GameAPI.height;
+		width = GameAPI.width;
 		pixels = new int[width * height];
 	}
 
 	public void update()
 	{
-		
+
 	}
 	public void render()
 	{
@@ -51,20 +54,22 @@ public class Screen
 	{
 
 	}
-	
+
 	public void renderAddonsTile()
 	{
 		for(Interactable i: addons)
 		{
-			int [] image = i.getCurrentPixelArray();
-			for(int xx=0;xx<i.getWidth();xx++)
+			if(i.isVisible())
 			{
-				for(int yy=0;yy<i.getHeight();yy++)
+				int [] image = i.getCurrentPixelArray();
+				for(int xx=0;xx<i.getWidth();xx++)
 				{
-					if(i.getY()+yy>=0 && i.getY()+yy<height && i.getX()+xx>=0 && i.getX()+xx<width)
+					for(int yy=0;yy<i.getHeight();yy++)
 					{
-						if(image[xx + yy* i.getWidth()]!=16777215)
+						if(i.getY()+yy>=0 && i.getY()+yy<height && i.getX()+xx>=0 && i.getX()+xx<width && (int)image[i.getWidth()* yy + xx] != -65328)
+						{
 							pixels[(i.getX()+xx)+(i.getY()+yy)*width]= image[xx + yy* i.getWidth()];
+						}
 					}
 				}
 			}
@@ -118,7 +123,7 @@ public class Screen
 	{
 		return name;
 	}
-	
+
 	public void addInteractable(Interactable i)
 	{
 		addons.add(i);
@@ -127,7 +132,7 @@ public class Screen
 	{
 		return addons;
 	}
-	
+
 	public void addStandAloneImage(StandAloneImage si)
 	{
 		images.add(si);
@@ -136,7 +141,7 @@ public class Screen
 	{
 		return images;
 	}
-	
+
 	public void addSubScreen(SubScreen ss)
 	{
 		subScreens.add(ss);
@@ -145,5 +150,19 @@ public class Screen
 	{
 		return subScreens;
 	}
-
+	
+	public Interactable getInteractable(Location loc)
+	{
+		for(Interactable i : addons)
+		{
+			if(i.contains(loc.getX(), loc.getY()))
+				return i;
+		}
+		return null;
+	}
+	
+	public void removeAllAddons()
+	{
+		addons.clear();
+	}
 }
