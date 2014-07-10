@@ -13,8 +13,8 @@ public class Location
 
 	public enum Direction
 	{
-		North, 
-		South, 
+		North,
+		South,
 		East, 
 		West;
 	}
@@ -47,5 +47,12 @@ public class Location
 	public Location divide(int xa, int ya)
 	{
 		return new Location(x/xa, y/ya);
+	}
+	
+	public boolean equals(Location loc)
+	{
+		if(x == loc.getX() && y == loc.getY())
+			return true;
+		return false;
 	}
 }
