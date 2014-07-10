@@ -6,7 +6,6 @@ import GameAPI.main.GameAPI;
 import GameAPI.screen.subscreen.SubScreen;
 import GameAPI.screen.util.Interactable;
 
-
 public class Screen
 {
 
@@ -18,8 +17,7 @@ public class Screen
 	private ArrayList<SubScreen> subScreens = new ArrayList<SubScreen>();
 	private ArrayList<Interactable> interactables = new ArrayList<Interactable>();
 
-	//private int offsetX = 0, offsetY = 0;
-
+	// private int offsetX = 0, offsetY = 0;
 
 	public Screen(String n)
 	{
@@ -33,8 +31,10 @@ public class Screen
 	{
 
 	}
+
 	public void render()
 	{
+		renderInteractables();
 	}
 
 	public void clear()
@@ -46,24 +46,47 @@ public class Screen
 
 	public void onClicked(Interactable clicked)
 	{
-		
+
+	}
+
+	public void onHover(Interactable clicked)
+	{
+
 	}
 
 	public void renderSubScreens()
 	{
-
-		for(SubScreen ss: subScreens)
+		for (SubScreen ss : subScreens)
 		{
 			ss.render();
-			int [] image = ss.pixels;
-			for(int xx=0;xx<ss.getWidth();xx++)
+			int[] image = ss.pixels;
+			for (int x = 0; x < ss.getWidth(); x++)
 			{
-				for(int yy=0;yy<ss.getHeight();yy++)
+				for (int y = 0; y < ss.getHeight(); y++)
 				{
-					if(ss.getY()+yy>=0 && ss.getY()+yy<height && ss.getX()+xx>=0 && ss.getX()+xx<width)
+					if (ss.getY() + y >= 0 && ss.getY() + y < height && ss.getX() + x >= 0 && ss.getX() + x < width)
 					{
-						if(image[xx + yy* ss.getWidth()]!=16777215)
-							pixels[(ss.getX()+xx)+(ss.getY()+yy)*width]= image[xx + yy* ss.getWidth()];
+						if (image[x + y * ss.getWidth()] != 16777215) 
+							pixels[width * (ss.getY() + y) + (ss.getX() + x)] = image[x + y * ss.getWidth()];
+					}
+				}
+			}
+		}
+	}
+
+	public void renderInteractables()
+	{
+		for (Interactable i : interactables)
+		{
+			int[] image = i.getCurrentPixelArray();
+			for (int x = 0; x < i.getWidth(); x++)
+			{
+				for (int y = 0; y < i.getHeight(); y++)
+				{
+					if (i.getY() + y >= 0 && i.getY() + y < height && i.getX() + x >= 0 && i.getX() + x < width)
+					{
+						if (image[x + y * i.getWidth()] != 16777215)
+							pixels[width * (i.getY() + y) + (i.getX() + x)] = image[x + y * i.getWidth()];
 					}
 				}
 			}
@@ -79,14 +102,17 @@ public class Screen
 	{
 		subScreens.add(ss);
 	}
+
 	public ArrayList<SubScreen> getSubScreens()
 	{
 		return subScreens;
 	}
+
 	public void addInteractable(Interactable i)
 	{
 		interactables.add(i);
 	}
+
 	public ArrayList<Interactable> getInteractables()
 	{
 		return interactables;

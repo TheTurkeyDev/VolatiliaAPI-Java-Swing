@@ -9,8 +9,10 @@ import GameAPI.screen.util.Interactable;
 
 public class ScreenMouseMotionListener extends MouseMotionAdapter
 {
+	public static Interactable currentHover;
+
 	int x = 0, y = 0;
-	public void mouseMoved(MouseEvent e) 
+	public void mouseMoved(MouseEvent e)
 	{
 		x = e.getX();
 		y = e.getY();
@@ -18,17 +20,19 @@ public class ScreenMouseMotionListener extends MouseMotionAdapter
 		{
 			if(i.contains(x, y))
 			{
-				if(i.isHover())
-					i.setSelected(true);
+					currentHover = i;
+					currentHover.onHover();
+					ScreenManager.getInstance().getCurrentScreen().onHover(i);
 			}
 			else
 			{
-				if(i.isHover())
-					i.setSelected(false);
+				try{
+					currentHover.onUnHover();
+				}catch(NullPointerException ex){}
 			}
 		}
 	}
-	
+
 	public int getX()
 	{
 		return x;

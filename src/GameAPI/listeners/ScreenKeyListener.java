@@ -7,6 +7,8 @@ public class ScreenKeyListener extends KeyAdapter
 {
 	private static boolean[] keys = new boolean[65883];
 	
+	public static int lastPressed = -1;
+	
 	public void keyReleased(KeyEvent e)
 	{
 		keys[e.getKeyCode()] = false;
@@ -14,6 +16,7 @@ public class ScreenKeyListener extends KeyAdapter
 	public void keyPressed(KeyEvent e)
 	{ 
 		keys[e.getKeyCode()] = true;
+		lastPressed = e.getKeyCode();
 	}
 	
 	public static boolean isKeyPressed(int key)

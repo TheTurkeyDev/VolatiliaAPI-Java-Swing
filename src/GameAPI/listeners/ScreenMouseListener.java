@@ -19,24 +19,10 @@ public class ScreenMouseListener extends MouseAdapter
 		{
 			if(i.contains(x, y))
 			{
-				if(i.isClick())
-				{
-					i.setSelected(!i.isSelected());
-				}
+				i.onClick();
 				ScreenManager.getInstance().getCurrentScreen().onClicked(i);
 			}
 		}
-		/*for(Interactable i: ScreenManager.getInstance().getCurrentScreen().getInteractables())
-		{
-			if(i.contains(x, y))
-			{
-				if(i.isClick())
-				{
-					i.setSelected(!i.isSelected());
-				}
-				ScreenManager.getInstance().getCurrentScreen().onClicked(i);
-			}
-		}*/
 	}
 	
 	public Location getLastClick()

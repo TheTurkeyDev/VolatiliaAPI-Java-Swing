@@ -12,10 +12,9 @@ public class Interactable
 	protected Image selected, unselected;
 
 	protected boolean isSelected = false;
-	protected boolean isHover = true;
-	protected boolean isClick = false;
 	
 	protected boolean isVisible = true;
+
 	
 	protected String name;
 
@@ -37,6 +36,19 @@ public class Interactable
 			return true;
 		}
 		return false;
+	}
+	
+	public void onClick()
+	{
+		
+	}
+	public void onHover()
+	{
+		
+	}
+	public void onUnHover()
+	{
+		
 	}
 
 	public Image getSelectedImage()
@@ -87,23 +99,6 @@ public class Interactable
 			return selected.getPixels();
 		else
 			return unselected.getPixels();
-	}
-	
-	public void setHover(boolean b)
-	{
-		isHover = b;
-	}
-	public void setClick(boolean b)
-	{
-		isClick = b;
-	}
-	public boolean isHover()
-	{
-		return isHover;
-	}
-	public boolean isClick()
-	{
-		return isClick;
 	}
 	
 	public void show()
