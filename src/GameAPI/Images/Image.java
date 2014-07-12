@@ -1,46 +1,33 @@
 package GameAPI.Images;
 
-import java.awt.image.BufferedImage;
-import java.io.IOException;
-
-import javax.imageio.ImageIO;
-
 public class Image 
 {
-	private BufferedImage image;
-	private int width, height;
+	private ImageSheet image;
+	private int width, height, x, y;
+	private int[] pixels;
 	
-	public Image(BufferedImage img)
+	public Image(ImageSheet img,int x, int y, int w, int h)
 	{
 		image = img;
-		width = img.getWidth();
-		height = img.getHeight();
+		width = w;
+		height = h;
+		this.x = x;
+		this.y = y;
+		pixels = new int[width * height];
+		loadPixels();
 	}
 	
-	@Deprecated
-	public static BufferedImage getImage(String path){
-		try {
-			return ImageIO.read(Image.class.getResource(path));
-		} catch (IOException e) {
-			return null;
-		}
+	private void loadPixels()
+	{
+		int[] imagePix = image.getPixels();
+		for(int yy = 0; yy < height; yy++)
+			for(int xx = 0; xx < width; xx++)
+				pixels[width*yy+xx] = imagePix[(y+yy)*image.getWidth() + (x+xx)];
 	}
 	
 	public int[] getPixels()
 	{
-		int w = image.getWidth(), h=image.getHeight();
-		return image.getRGB(0, 0, w, h, new int[w*h], 0, w);
-	}
-	
-	public int[] getSubPixels(int x, int y, int xsize, int ysize)
-	{
-		int w = image.getWidth(), h=image.getHeight();
-		return image.getRGB(x, y, xsize, ysize, new int[w*h], 0, xsize);
-	}
-	
-	public BufferedImage getSubImage(int x, int y, int xsize, int ysize)
-	{
-		return image.getSubimage(x, y, xsize, ysize);
+		return pixels;
 	}
 	
 	public int getWidth()

@@ -1,10 +1,7 @@
 package GameAPI.screen;
 
-import java.io.IOException;
-
-import javax.imageio.ImageIO;
-
 import GameAPI.Images.Image;
+import GameAPI.Images.ImageSheet;
 import GameAPI.screen.util.Button;
 import GameAPI.util.Maze;
 
@@ -18,13 +15,9 @@ public class TestScreen extends Screen
 		super(n);
 		maze = new Maze();
 		maze.generate(false, 40, 30, 20, 20);
-		Image selected = null, unselected = null;
-		try
-		{
-			selected = new Image(ImageIO.read(TestScreen.class.getResource("/Images/BeginSelectedButton.png")));
-			unselected = new Image(ImageIO.read(TestScreen.class.getResource("/Images/BeginUnSelectedButton.png")));
-		} catch (IOException e){e.printStackTrace();}
-		
+		ImageSheet test = new ImageSheet(TestScreen.class, "/Images/testSheet.png", 800, 600);
+		Image selected = new Image(test,0,0,250,75);
+		Image unselected = new Image(test,250,0,250,75);
 		Button button = new Button(100, 200, 250, 75, selected, unselected, "test Button");
 		addInteractable(button);
 	}

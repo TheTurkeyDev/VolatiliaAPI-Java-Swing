@@ -5,7 +5,7 @@ import GameAPI.Images.Image;
 public class Button extends Interactable
 {
 	
-	private boolean isHover = false;
+	private boolean isHover = true;
 	private boolean isClick = false;
 	private boolean isClicked = false;
 	
