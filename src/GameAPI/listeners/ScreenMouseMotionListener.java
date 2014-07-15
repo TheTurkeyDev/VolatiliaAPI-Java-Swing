@@ -4,7 +4,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
 
 import GameAPI.screen.ScreenManager;
-import GameAPI.screen.util.Interactable;
+import GameAPI.screen.screenObjects.Interactable;
 
 
 public class ScreenMouseMotionListener extends MouseMotionAdapter

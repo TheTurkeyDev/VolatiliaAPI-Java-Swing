@@ -1,4 +1,4 @@
-package GameAPI.screen.util;
+package GameAPI.screen.screenObjects;
 
 import GameAPI.Images.Image;
 

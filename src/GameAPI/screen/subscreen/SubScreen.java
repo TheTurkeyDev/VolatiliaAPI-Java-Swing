@@ -3,7 +3,7 @@ package GameAPI.screen.subscreen;
 import java.util.ArrayList;
 
 import GameAPI.screen.Screen;
-import GameAPI.screen.util.Interactable;
+import GameAPI.screen.screenObjects.Interactable;
 
 public class SubScreen
 {

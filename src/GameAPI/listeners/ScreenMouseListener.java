@@ -4,7 +4,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 import GameAPI.screen.ScreenManager;
-import GameAPI.screen.util.Interactable;
+import GameAPI.screen.screenObjects.Interactable;
 import GameAPI.util.Location;
 
 

@@ -2,7 +2,7 @@ package GameAPI.screen;
 
 import GameAPI.Images.Image;
 import GameAPI.Images.ImageSheet;
-import GameAPI.screen.util.Button;
+import GameAPI.screen.screenObjects.Button;
 import GameAPI.util.Maze;
 
 public class TestScreen extends Screen
