@@ -20,6 +20,7 @@ public class TestScreen extends Screen
 		Image unselected = new Image(test,250,0,250,75);
 		Button button = new Button(100, 200, 250, 75, selected, unselected, "test Button");
 		addInteractable(button);
+		setOffset(0, 0);
 	}
 
 	public void render()
