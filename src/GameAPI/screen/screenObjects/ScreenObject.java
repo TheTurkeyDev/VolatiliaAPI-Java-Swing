@@ -1,6 +1,6 @@
 package GameAPI.screen.screenObjects;
 
-import GameAPI.Images.Image;
+import GameAPI.Graphics.Image;
 
 public class ScreenObject
 {
