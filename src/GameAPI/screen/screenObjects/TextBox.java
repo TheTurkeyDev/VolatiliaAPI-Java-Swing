@@ -1,6 +1,6 @@
 package GameAPI.screen.screenObjects;
 
-import GameAPI.Graphics.Image;
+import GameAPI.graphics.Image;
 
 public class TextBox 
 {

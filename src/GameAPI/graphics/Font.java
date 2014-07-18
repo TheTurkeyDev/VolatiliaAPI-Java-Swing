@@ -1,4 +1,4 @@
-package GameAPI.Graphics;
+package GameAPI.graphics;
 
 import java.util.ArrayList;
 

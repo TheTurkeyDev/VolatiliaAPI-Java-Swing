@@ -7,11 +7,11 @@ import java.awt.image.DataBufferInt;
 
 import javax.swing.JPanel;
 
+import GameAPI.screen.ScreenManager;
+import GameAPI.screen.TestScreen;
 import GameAPI.listeners.ScreenKeyListener;
 import GameAPI.listeners.ScreenMouseListener;
 import GameAPI.listeners.ScreenMouseMotionListener;
-import GameAPI.screen.ScreenManager;
-import GameAPI.screen.TestScreen;
 
 public class GameAPI extends JPanel implements Runnable
 {

@@ -1,7 +1,7 @@
 package GameAPI.screen;
 
-import GameAPI.Graphics.Image;
-import GameAPI.Graphics.ImageSheet;
+import GameAPI.graphics.Image;
+import GameAPI.graphics.ImageSheet;
 import GameAPI.screen.screenObjects.Button;
 import GameAPI.util.Maze;
 

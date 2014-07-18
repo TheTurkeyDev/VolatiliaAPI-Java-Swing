@@ -1,4 +1,4 @@
-package GameAPI.Graphics;
+package GameAPI.graphics;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;

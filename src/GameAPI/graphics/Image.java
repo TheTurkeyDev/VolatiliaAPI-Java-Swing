@@ -1,4 +1,4 @@
-package GameAPI.Graphics;
+package GameAPI.graphics;
 
 public class Image 
 {
