@@ -43,7 +43,7 @@ public class ImageSheet
 	{
 		return width;
 	}
-	public int getHegiht()
+	public int getHeight()
 	{
 		return height;
 	}

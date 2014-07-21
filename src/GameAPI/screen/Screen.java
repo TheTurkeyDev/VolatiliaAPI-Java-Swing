@@ -81,7 +81,7 @@ public class Screen
 	{
 		if(currentMap == null)
 			return;
-		pixels = currentMap.render(xOffset, yOffset, 800, 600);
+		pixels = currentMap.render(xOffset, yOffset, width, height);
 	}
 
 	public void renderInteractables(int offsetX, int offsetY)

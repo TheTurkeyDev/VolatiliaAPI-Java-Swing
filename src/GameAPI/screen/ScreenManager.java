@@ -73,10 +73,10 @@ public class ScreenManager
 				return t;
 		return null;
 	}
-	public Tile getTileFromColorCode(int code)
+	public Tile getTileFromColorCode(String code)
 	{
 		for(Tile t: tiles)
-			if(t.getColorCode() == code)
+			if(t.getColorCode().equalsIgnoreCase(code))
 				return t;
 		return null;
 	}

@@ -49,14 +49,14 @@ public class GameAPI extends Canvas implements Runnable
 		Dimension size = new Dimension(width * scale, height * scale);
 		setPreferredSize(size);
 		frameName = name;
-		super.setFocusable(true);
-		super.requestFocusInWindow();
-		super.addKeyListener(new ScreenKeyListener());
-		super.addMouseListener(new ScreenMouseListener());
-		super.addMouseMotionListener(new ScreenMouseMotionListener());
+		setFocusable(true);
+		requestFocusInWindow();
 		image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
 		pixels = ((DataBufferInt)image.getRaster().getDataBuffer()).getData();
 		sm = new ScreenManager();
+		addKeyListener(new ScreenKeyListener());
+		addMouseListener(new ScreenMouseListener());
+		addMouseMotionListener(new ScreenMouseMotionListener());
 		api = this;
 	}
 
@@ -113,7 +113,10 @@ public class GameAPI extends Canvas implements Runnable
 
 	public void update()
 	{
+		try
+		{
 		sm.getCurrentScreen().update();
+		}catch(NullPointerException e){if(sm.getCurrentScreen()== null)return; else e.printStackTrace();}
 	}
 
 	public void render()
@@ -129,7 +132,7 @@ public class GameAPI extends Canvas implements Runnable
 			// As long as the full size of the screen is being rendered out this isn't needed
 			//sm.getCurrentScreen().clear();
 			sm.getCurrentScreen().render();
-		}catch(NullPointerException e){if(sm.getCurrentScreen()== null)System.out.println("Screen is null!!"); else e.printStackTrace();}
+		}catch(NullPointerException e){if(sm.getCurrentScreen()== null){System.out.println("Screen is null!!"); return; }else e.printStackTrace();}
 
 		for(int y = 0; y < sm.getCurrentScreen().height; y++)
 		{

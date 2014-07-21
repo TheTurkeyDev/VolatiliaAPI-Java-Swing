@@ -6,12 +6,12 @@ public class TestRun extends JFrame
 {
 	private static final long serialVersionUID = 1L;
 
-	public static void main(String[] args)
+	/*public static void main(String[] args)
 	{
 		TestRun run = new TestRun();
 		run.start();
-	}
-
+	}*/
+	
 	public void start()
 	{
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

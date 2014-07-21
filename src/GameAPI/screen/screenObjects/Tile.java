@@ -6,7 +6,7 @@ public class Tile
 {
 	public final static int SIZE = 32;
 	protected int id;
-	protected int colorID;
+	protected String colorID;
 	protected String name;
 	protected Image image;
 
@@ -14,11 +14,12 @@ public class Tile
 	
 	protected boolean isVisible = true;
 	
-	public Tile(Image img, String n, int id, int hex)
+	public Tile(Image img, String n, int id, String hex)
 	{
 		image = img;
 		name = n;
 		this.id = id;
+		colorID = hex;
 	}
 	
 	public void render(int x, int y)
@@ -50,7 +51,7 @@ public class Tile
 	{
 		return id;
 	}
-	public int getColorCode()
+	public String getColorCode()
 	{
 		return colorID;
 	}

@@ -20,8 +20,8 @@ public class Image
 	private void loadPixels()
 	{
 		int[] imagePix = image.getPixels();
-		for(int yy = 0; yy < height; yy++)
-			for(int xx = 0; xx < width; xx++)
+		for(int xx = 0; xx < width; xx++)
+			for(int yy = 0; yy < height; yy++)
 				pixels[width*yy+xx] = imagePix[(y+yy)*image.getWidth() + (x+xx)];
 	}
 	

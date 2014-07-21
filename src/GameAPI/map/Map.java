@@ -26,13 +26,13 @@ public class Map
 			{
 				int xx = (x - xOffset);
 				int yy = (y - yOffset);
-				if(x > (width * Tile.SIZE) || y > (height * Tile.SIZE) || x < 0 || y < 0)
+				if(xx > (width * Tile.SIZE) || yy > (height * Tile.SIZE))
 				{
-					pixels[w * yy  + xx] = ScreenManager.getInstance().getTileFromID(0).getPixelArray()[Tile.SIZE * (yy / Tile.SIZE) +(xx / Tile.SIZE)];
+					pixels[w * yy  + xx] = ScreenManager.getInstance().getTileFromID(0).getPixelArray()[Tile.SIZE * (int)(yy / Tile.SIZE) + (int)(xx / Tile.SIZE)];
 				}
 				else
 				{
-					pixels[w * yy + xx] = ScreenManager.getInstance().getTileFromID(tiles[width * (yy / Tile.SIZE) + (xx / Tile.SIZE)]).getPixelArray()[Tile.SIZE * (yy / Tile.SIZE) +(xx / Tile.SIZE)];
+					pixels[w * yy + xx] = ScreenManager.getInstance().getTileFromID(tiles[width * (int)(yy / Tile.SIZE) + (int)(xx / Tile.SIZE)]).getPixelArray()[Tile.SIZE * (int)(yy / Tile.SIZE) + (int)(xx / Tile.SIZE)];
 				}
 			}
 		}
