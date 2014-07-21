@@ -73,4 +73,11 @@ public class ScreenManager
 				return t;
 		return null;
 	}
+	public Tile getTileFromColorCode(int code)
+	{
+		for(Tile t: tiles)
+			if(t.getColorCode() == code)
+				return t;
+		return null;
+	}
 }

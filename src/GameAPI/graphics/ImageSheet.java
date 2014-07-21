@@ -43,5 +43,9 @@ public class ImageSheet
 	{
 		return width;
 	}
+	public int getHegiht()
+	{
+		return height;
+	}
 	
 }
