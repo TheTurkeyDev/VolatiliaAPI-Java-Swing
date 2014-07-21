@@ -1,14 +1,11 @@
 package GameAPI.screen.screenObjects;
 
-import GameAPI.screen.Screen;
 import GameAPI.graphics.Image;
 
 public class Tile
 {
-	protected int x;
-	protected int y;
-	protected int xSize;
-	protected int ySize;
+	public final static int SIZE = 64;
+	protected int id;
 	protected Image image;
 
 	protected boolean isSelected = false;
@@ -18,17 +15,19 @@ public class Tile
 	
 	protected String name;
 	
-	public Tile(int Bx, int By, int BxSize, int BySize, Image img, String n)
+	public Tile(Image img, String n, int id)
 	{
-		x = Bx;
-		y = By;
-		xSize = BxSize;
-		ySize = BySize;
 		image = img;
 		name = n;
+		this.id = id;
 	}
 	
-	public void render(int xLoc, int yLoc, Screen screen)
+	public void render(int x, int y)
+	{
+		
+	}
+	
+	public void update()
 	{
 		
 	}
@@ -38,26 +37,18 @@ public class Tile
 		return false;
 	}
 	
-	public int getX()
+	public int getSize()
 	{
-		return x;
-	}
-	public int getY()
-	{
-		return y;
-	}
-	
-	public int getWidth()
-	{
-		return image.getWidth();
-	}
-	public int getHeight()
-	{
-		return image.getHeight();
+		return SIZE;
 	}
 	
 	public int[] getPixelArray()
 	{
 		return image.getPixels();
+	}
+	
+	public int getID()
+	{
+		return id;
 	}
 }

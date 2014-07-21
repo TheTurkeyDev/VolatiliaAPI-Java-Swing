@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import GameAPI.main.GameAPI;
 import GameAPI.screen.screenObjects.Interactable;
-import GameAPI.screen.screenObjects.Tile;
 import GameAPI.screen.subscreen.SubScreen;
 
 public class Screen
@@ -17,7 +16,7 @@ public class Screen
 
 	private ArrayList<SubScreen> subScreens = new ArrayList<SubScreen>();
 	private ArrayList<Interactable> interactables = new ArrayList<Interactable>();
-	private ArrayList<Tile> tiles = new ArrayList<Tile>();
+	public Map currentMap;
 
 	private int xOffset = 0, yOffset = 0;
 
@@ -37,7 +36,7 @@ public class Screen
 	public void render()
 	{
 		renderInteractables(xOffset, yOffset);
-		renderTiles(xOffset, yOffset);
+		renderMap(xOffset, yOffset);
 	}
 
 	public void clear()
@@ -77,26 +76,11 @@ public class Screen
 		}
 	}
 
-	public void renderTiles(int xOffset, int yOffset)
+	public void renderMap(int xOffset, int yOffset)
 	{
-		for (Tile t : tiles)
-		{
-			if ((t.getY() + t.getHeight()) >= yOffset || (t.getY() + t.getHeight()) < (height + yOffset) || (t.getX() + t.getWidth()) >= xOffset || (t.getX() + t.getWidth()) < (width + xOffset))
-			{
-				int[] image = t.getPixelArray();
-				for (int y = 0; y < t.getHeight(); y++)
-				{
-					int ya = y + t.getY();
-					for (int x = 0; x < t.getWidth(); x++)
-					{
-						int xa = x + t.getX();
-						if(xa < xOffset || xa > width + xOffset || ya < yOffset || ya >= height + yOffset)break;
-						if (image[x + y * t.getWidth()] != 16777215)
-							pixels[width * (ya - yOffset) + (xa - xOffset)] = image[x + y * t.getWidth()];
-					}
-				}
-			}
-		}
+		if(currentMap == null)
+			return;
+		pixels = currentMap.render(xOffset, yOffset, 800, 600);
 	}
 
 	public void renderInteractables(int offsetX, int offsetY)
@@ -149,5 +133,15 @@ public class Screen
 	{
 		xOffset = xoff;
 		yOffset = yoff;
+	}
+	
+	public Map getCurrentMap()
+	{
+		return currentMap;
+	}
+	public void setCurrentMap(Map map)
+	{
+		currentMap = map;
+		currentMap.generate();
 	}
 }

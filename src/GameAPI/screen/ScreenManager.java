@@ -2,13 +2,16 @@ package GameAPI.screen;
 
 import java.util.ArrayList;
 
+import GameAPI.screen.screenObjects.Tile;
+
 
 public class ScreenManager
 {
 	private Screen currentScreen;
 	public static ScreenManager sm;
 	
-	public ArrayList<Screen> screens = new ArrayList<Screen>();
+	private ArrayList<Screen> screens = new ArrayList<Screen>();
+	private ArrayList<Tile> tiles = new ArrayList<Tile>();
 	
 	public ScreenManager()
 	{
@@ -56,6 +59,18 @@ public class ScreenManager
 				return s;
 			}
 		}
+		return null;
+	}
+	
+	public void addTile(Tile tile)
+	{
+		tiles.add(tile);
+	}
+	public Tile getTileFromID(int id)
+	{
+		for(Tile t: tiles)
+			if(t.getID() == id)
+				return t;
 		return null;
 	}
 }
