@@ -1,7 +1,6 @@
 package GameAPI.main;
 
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 
 public class TestRun extends JFrame
 {
@@ -17,9 +16,8 @@ public class TestRun extends JFrame
 	{
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 800, 600);
-		JPanel game = new GameAPI("GameAPI", 800, 600, 1);
-		game.setLayout(null);
-		setTitle("Maze Sweeper");
+		GameAPI game = new GameAPI("GameAPI", 800, 600, 1, this);
+		setTitle("GameAPI");
 		add(game);
 		setVisible(true);
 		((GameAPI) game).start();

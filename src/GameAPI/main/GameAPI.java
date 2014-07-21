@@ -1,11 +1,13 @@
 package GameAPI.main;
 
+import java.awt.Canvas;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
 
-import javax.swing.JPanel;
+import javax.swing.JFrame;
 
 import GameAPI.screen.ScreenManager;
 import GameAPI.screen.TestScreen;
@@ -13,11 +15,13 @@ import GameAPI.listeners.ScreenKeyListener;
 import GameAPI.listeners.ScreenMouseListener;
 import GameAPI.listeners.ScreenMouseMotionListener;
 
-public class GameAPI extends JPanel implements Runnable
+public class GameAPI extends Canvas implements Runnable
 {
 	private static final long serialVersionUID = 1L;
 
 	private static GameAPI api;
+	
+	private JFrame frame;
 
 	public static int width, height, scale;
 
@@ -37,15 +41,15 @@ public class GameAPI extends JPanel implements Runnable
 	private int gFrames = 0;
 	private int gUpdates = 0;
 
-	public GameAPI(String name, int w, int h, int s)
+	public GameAPI(String name, int w, int h, int s, JFrame f)
 	{
 		width = w;
 		height = h;
 		scale = s;
+		frame = f;
 		Dimension size = new Dimension(width * scale, height * scale);
 		setPreferredSize(size);
 		frameName = name;
-		super.setName(frameName);
 		super.setFocusable(true);
 		super.requestFocusInWindow();
 		super.addKeyListener(new ScreenKeyListener());
@@ -100,16 +104,18 @@ public class GameAPI extends JPanel implements Runnable
 				updates++;
 				delta--;
 			}
-			repaint();
+			render();
 			frames++;
 
 			if(System.currentTimeMillis() - timer > 1000)
 			{
 				gFrames = frames;
 				gUpdates = updates;
+				frame.setTitle(frameName + " FPS: " + gFrames);
 				timer += 1000;
 				updates = 0;
 				frames = 0;
+				
 			}
 		}
 	}
@@ -119,8 +125,14 @@ public class GameAPI extends JPanel implements Runnable
 		sm.getCurrentScreen().update();
 	}
 
-	public void paint(Graphics g)
+	public void render()
 	{
+		BufferStrategy strat = getBufferStrategy();
+		if(strat == null)
+		{
+			createBufferStrategy(3);
+			return;
+		}
 		try
 		{
 			// As long as the full size of the screen is being rendered out this isn't needed
@@ -136,12 +148,14 @@ public class GameAPI extends JPanel implements Runnable
 			}
 		}
 
-
+		Graphics g = strat.getDrawGraphics();
 		g.drawImage(image, 0, 0, getWidth(), getHeight(), null);
 		if(displayInfo)
 		{
 			g.drawString(gUpdates + " ups, " + gFrames + " Frames", 0, 10);
 		}
+		g.dispose();
+		strat.show();
 	}
 
 	public ScreenManager getScreenManager()

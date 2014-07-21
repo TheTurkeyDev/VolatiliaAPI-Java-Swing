@@ -3,12 +3,30 @@ package GameAPI.screen.screenObjects;
 
 import GameAPI.graphics.Image;
 
-public class Interactable extends ScreenObject
+public class Interactable
 {
+	protected int x;
+	protected int y;
+	protected int xSize;
+	protected int ySize;
+	protected Image selectedImage;
+	protected Image unSelectedImage;
 
-	public Interactable(int Bx, int By, int BxSize, int BySize, Image SelectedImage, Image UnSelectedImage, String n)
+	protected boolean isSelected = false;
+	
+	protected boolean isVisible = true;
+
+	protected String name;
+	
+	public Interactable(int Bx, int By, int BxSize, int BySize, Image si, Image usi, String n)
 	{
-		super(Bx,By,BxSize,BySize,SelectedImage, UnSelectedImage,n);
+		x = Bx;
+		y = By;
+		xSize = BxSize;
+		ySize = BySize;
+		selectedImage = si;
+		unSelectedImage = usi;
+		name = n;
 	}
 
 	public boolean contains(int mX, int mY)
@@ -44,7 +62,7 @@ public class Interactable extends ScreenObject
 
 	public Image getCurrentImage()
 	{
-		return (isSelected) ? image : image2;
+		return (isSelected) ? selectedImage : unSelectedImage;
 	}
 
 	public int getHeight()
@@ -68,9 +86,9 @@ public class Interactable extends ScreenObject
 	public int[] getCurrentPixelArray()
 	{
 		if(isSelected)
-			return image.getPixels();
+			return selectedImage.getPixels();
 		else
-			return image2.getPixels();
+			return unSelectedImage.getPixels();
 	}
 	
 	public void show()
