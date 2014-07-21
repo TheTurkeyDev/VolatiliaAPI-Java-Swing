@@ -10,7 +10,6 @@ import java.awt.image.DataBufferInt;
 import javax.swing.JFrame;
 
 import GameAPI.screen.ScreenManager;
-import GameAPI.screen.TestScreen;
 import GameAPI.listeners.ScreenKeyListener;
 import GameAPI.listeners.ScreenMouseListener;
 import GameAPI.listeners.ScreenMouseMotionListener;
@@ -59,14 +58,6 @@ public class GameAPI extends Canvas implements Runnable
 		pixels = ((DataBufferInt)image.getRaster().getDataBuffer()).getData();
 		sm = new ScreenManager();
 		api = this;
-
-		test();
-	}
-
-	private void test()
-	{
-		sm.addScreen(new TestScreen("Test Screen"));
-		sm.setCurrentScreen("Test Screen");
 	}
 
 	public synchronized void start()

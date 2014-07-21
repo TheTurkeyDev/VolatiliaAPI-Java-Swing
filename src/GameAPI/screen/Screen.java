@@ -3,6 +3,7 @@ package GameAPI.screen;
 import java.util.ArrayList;
 
 import GameAPI.main.GameAPI;
+import GameAPI.map.Map;
 import GameAPI.screen.screenObjects.Interactable;
 import GameAPI.screen.subscreen.SubScreen;
 

@@ -1,5 +1,6 @@
-package GameAPI.screen;
+package GameAPI.map;
 
+import GameAPI.screen.ScreenManager;
 import GameAPI.screen.screenObjects.Tile;
 import GameAPI.util.Location;
 

@@ -6,16 +6,15 @@ public class Tile
 {
 	public final static int SIZE = 64;
 	protected int id;
+	protected int colorID;
+	protected String name;
 	protected Image image;
 
 	protected boolean isSelected = false;
 	
 	protected boolean isVisible = true;
-
 	
-	protected String name;
-	
-	public Tile(Image img, String n, int id)
+	public Tile(Image img, String n, int id, int hex)
 	{
 		image = img;
 		name = n;
