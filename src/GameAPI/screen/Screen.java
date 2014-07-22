@@ -3,7 +3,6 @@ package GameAPI.screen;
 import java.util.ArrayList;
 
 import GameAPI.main.GameAPI;
-import GameAPI.map.Map;
 import GameAPI.screen.screenObjects.Interactable;
 import GameAPI.screen.subscreen.SubScreen;
 
@@ -17,9 +16,6 @@ public class Screen
 
 	private ArrayList<SubScreen> subScreens = new ArrayList<SubScreen>();
 	private ArrayList<Interactable> interactables = new ArrayList<Interactable>();
-	public Map currentMap;
-
-	private int xOffset = 0, yOffset = 0;
 
 	public Screen(String n)
 	{
@@ -36,8 +32,7 @@ public class Screen
 
 	public void render()
 	{
-		renderInteractables(xOffset, yOffset);
-		renderMap(xOffset, yOffset);
+		renderInteractables();
 	}
 
 	public void clear()
@@ -77,29 +72,18 @@ public class Screen
 		}
 	}
 
-	public void renderMap(int xOffset, int yOffset)
-	{
-		if(currentMap == null)
-			return;
-		pixels = currentMap.render(xOffset, yOffset, width, height);
-	}
-
-	public void renderInteractables(int offsetX, int offsetY)
+	public void renderInteractables()
 	{
 		for (Interactable i : interactables)
 		{
-			int ix = i.getX() - offsetX;
-			int iy = i.getY() - offsetY;
 			int[] image = i.getCurrentPixelArray();
 			for (int y = 0; y < i.getHeight(); y++)
 			{
-				int ya = y + iy;
 				for (int x = 0; x < i.getWidth(); x++)
 				{
-					int xa = x + ix;
-					if(xa < offsetX || xa > width + offsetX || ya < offsetY || ya >= height + offsetY)break;					
+					if(x < 0 || x > width || y < 0 || y >= height )break;					
 					if (image[x + y * i.getWidth()] != 16777215)
-						pixels[width * (ya - offsetY) + (xa - offsetX)] = image[x + y * i.getWidth()];
+						pixels[width * y + x] = image[x + y * i.getWidth()];
 				}
 			}
 		}
@@ -128,21 +112,5 @@ public class Screen
 	public ArrayList<Interactable> getInteractables()
 	{
 		return interactables;
-	}
-
-	public void setOffset(int xoff, int yoff)
-	{
-		xOffset = xoff;
-		yOffset = yoff;
-	}
-	
-	public Map getCurrentMap()
-	{
-		return currentMap;
-	}
-	public void setCurrentMap(Map map)
-	{
-		currentMap = map;
-		currentMap.generate();
 	}
 }

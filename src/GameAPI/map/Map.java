@@ -44,6 +44,11 @@ public class Map
 		tiles[width * loc.getY() + loc.getX()] = tile.getID();
 	}
 	
+	public Tile getTileAt(Location loc)
+	{
+		return ScreenManager.getInstance().getTileFromID(tiles[width * loc.getY() + loc.getX()]);
+	}
+	
 	public void generate()
 	{
 		
