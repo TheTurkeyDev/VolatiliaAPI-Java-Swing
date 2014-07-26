@@ -35,9 +35,15 @@ public class Game
 	
 	public void update()
 	{
-		for(Entity ent: entities)
+		for(int i = 0; i < entities.size(); i++)
 		{
+			Entity ent = entities.get(i);
 			ent.update();
+			if(!ent.isAlive())
+			{
+				entities.remove(i);
+				i--;
+			}
 		}
 	}
 	
@@ -58,8 +64,10 @@ public class Game
 			{
 				for(int y = 0; y < ent.getSize(); y++)
 				{
-					if(ent.getPixels()[ent.getSize() * y + x] != -65316)
-					pixels[width * ((y + ent.getLocation().getY()) - yOffset) + ((x + ent.getLocation().getX()) - xOffset)] = pix[ent.getSize() * y + x];
+					int yy = ((y + ent.getLocation().getY()) - yOffset);
+					int xx = ((x + ent.getLocation().getX()) - xOffset);
+					if(ent.getPixels()[ent.getSize() * y + x] != -65316 && yy < height && xx < width)
+					pixels[width * yy  + xx] = pix[ent.getSize() * y + x];
 				}
 			}
 		}
