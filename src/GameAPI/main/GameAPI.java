@@ -134,11 +134,12 @@ public class GameAPI extends Canvas implements Runnable
 			sm.getCurrentScreen().render();
 		}catch(NullPointerException e){if(sm.getCurrentScreen()== null){System.out.println("Screen is null!!"); return; }else e.printStackTrace();}
 
+		int[] pix = sm.getCurrentScreen().pixels;
 		for(int y = 0; y < sm.getCurrentScreen().height; y++)
 		{
 			for(int x = 0; x < sm.getCurrentScreen().width; x++)
 			{
-				pixels[width * y + x] = sm.getCurrentScreen().pixels[width * y + x];
+				pixels[width * y + x] = pix[width * y + x];
 			}
 		}
 

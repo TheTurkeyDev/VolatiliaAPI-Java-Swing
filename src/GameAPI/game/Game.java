@@ -53,12 +53,13 @@ public class Game
 		for(Entity ent: entities)
 		{
 			ent.render();
+			int[] pix = ent.getPixels();
 			for(int x = 0; x < ent.getSize(); x++)
 			{
 				for(int y = 0; y < ent.getSize(); y++)
 				{
 					if(ent.getPixels()[ent.getSize() * y + x] != -65316)
-					pixels[width * ((y + ent.getLocation().getY()) - yOffset) + ((x + ent.getLocation().getX()) - xOffset)] = ent.getPixels()[ent.getSize() * y + x];
+					pixels[width * ((y + ent.getLocation().getY()) - yOffset) + ((x + ent.getLocation().getX()) - xOffset)] = pix[ent.getSize() * y + x];
 				}
 			}
 		}
@@ -74,9 +75,25 @@ public class Game
 		entities.add(ent);
 	}
 	
-	public boolean canMoveTo(Location loc)
+	public boolean canMoveTo(Location loc, int size)
 	{
-		return map.getTileAt(new Location(loc.getX() / Tile.SIZE, loc.getY() / Tile.SIZE)).solid();
+		if(map.getTileAt(new Location(loc.getX() / Tile.SIZE, loc.getY() / Tile.SIZE)).solid())
+		{
+			return false;
+		}
+		else if(map.getTileAt(new Location((loc.getX() + size) / Tile.SIZE, loc.getY() / Tile.SIZE)).solid())
+		{
+			return false;
+		}
+		else if(map.getTileAt(new Location(loc.getX() / Tile.SIZE, (loc.getY() + size) / Tile.SIZE)).solid())
+		{
+			return false;
+		}
+		else if(map.getTileAt(new Location((loc.getX() + size) / Tile.SIZE, (loc.getY() + size) / Tile.SIZE)).solid())
+		{
+			return false;
+		}
+		return true;
 	}
 	
 	public void setOffset(int xoff, int yoff)
