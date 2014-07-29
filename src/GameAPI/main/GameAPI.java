@@ -102,7 +102,7 @@ public class GameAPI extends Canvas implements Runnable
 			{
 				gFrames = frames;
 				gUpdates = updates;
-				frame.setTitle(frameName + " FPS: " + gFrames);
+				frame.setTitle(frameName + " FPS: " + gFrames + " UPS: " + gUpdates);
 				timer += 1000;
 				updates = 0;
 				frames = 0;
