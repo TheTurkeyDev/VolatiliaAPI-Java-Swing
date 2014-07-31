@@ -14,6 +14,7 @@ public abstract class Entity
 	protected Image image;
 	protected Direction facing = Direction.North;
 	protected boolean isMoving = false;
+	protected boolean canMove = true;
 	protected Game game;
 	
 	public Entity(Image i, int s, Game g)
@@ -62,6 +63,16 @@ public abstract class Entity
 	public int getSize()
 	{
 		return size;
+	}
+	
+	public void stop()
+	{
+		canMove = false;
+	}
+	
+	public void start()
+	{
+		canMove = true;
 	}
 
 }
