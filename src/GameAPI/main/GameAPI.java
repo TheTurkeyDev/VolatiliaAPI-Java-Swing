@@ -10,6 +10,7 @@ import java.awt.image.DataBufferInt;
 import javax.swing.JFrame;
 
 import GameAPI.screen.ScreenManager;
+import GameAPI.graphics.DefaultFont;
 import GameAPI.listeners.ScreenKeyListener;
 import GameAPI.listeners.ScreenMouseListener;
 import GameAPI.listeners.ScreenMouseMotionListener;
@@ -54,6 +55,7 @@ public class GameAPI extends Canvas implements Runnable
 		image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
 		pixels = ((DataBufferInt)image.getRaster().getDataBuffer()).getData();
 		sm = new ScreenManager();
+		new DefaultFont();
 		addKeyListener(new ScreenKeyListener());
 		addMouseListener(new ScreenMouseListener());
 		addMouseMotionListener(new ScreenMouseMotionListener());

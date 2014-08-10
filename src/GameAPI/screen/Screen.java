@@ -2,6 +2,8 @@ package GameAPI.screen;
 
 import java.util.ArrayList;
 
+import GameAPI.graphics.Image;
+import GameAPI.graphics.Text;
 import GameAPI.main.GameAPI;
 import GameAPI.screen.screenObjects.Interactable;
 import GameAPI.screen.subscreen.SubScreen;
@@ -16,6 +18,7 @@ public class Screen
 
 	private ArrayList<SubScreen> subScreens = new ArrayList<SubScreen>();
 	private ArrayList<Interactable> interactables = new ArrayList<Interactable>();
+	private ArrayList<Text> text = new ArrayList<Text>();
 
 	public Screen(String n)
 	{
@@ -33,6 +36,7 @@ public class Screen
 	public void render()
 	{
 		renderInteractables();
+		renderText();
 	}
 
 	public void clear()
@@ -64,7 +68,7 @@ public class Screen
 				{
 					if (ss.getY() + y >= 0 && ss.getY() + y < height && ss.getX() + x >= 0 && ss.getX() + x < width)
 					{
-						if (image[x + y * ss.getWidth()] != 16777215) 
+						if (image[x + y * ss.getWidth()] != -65316) 
 							pixels[width * (ss.getY() + y) + (ss.getX() + x)] = image[x + y * ss.getWidth()];
 					}
 				}
@@ -82,8 +86,27 @@ public class Screen
 				for (int x = 0; x < i.getWidth(); x++)
 				{
 					if(x < 0 || x > width || y < 0 || y >= height )break;					
-					if (image[x + y * i.getWidth()] != 16777215)
-						pixels[width * y + x] = image[x + y * i.getWidth()];
+					if (image[x + y * i.getWidth()] != -65316)
+						pixels[width * (y + i .getY()) + (x + i.getX())] = image[x + y * i.getWidth()];
+				}
+			}
+		}
+	}
+	public void renderText()
+	{
+		for (Text t : text)
+		{
+			for(int i = 0; i < t.getImageAmount(); i++)
+			{
+				Image image = t.getImageAt(i);
+				int[] pix = image.getPixels();
+				int w = image.getWidth();
+				for(int yLoc = 0; yLoc < w; yLoc++)
+				{
+					for(int xLoc = 0; xLoc < image.getWidth(); xLoc++)
+					{
+						pixels[width * (t.getLocation().getY() + yLoc) + (t.getLocation().getX() + (xLoc + (w * i)))] = pix[w * yLoc + xLoc];
+					}
 				}
 			}
 		}
@@ -112,5 +135,15 @@ public class Screen
 	public ArrayList<Interactable> getInteractables()
 	{
 		return interactables;
+	}
+	
+	public void addText(Text t)
+	{
+		text.add(t);
+	}
+
+	public ArrayList<Text> getText()
+	{
+		return text;
 	}
 }

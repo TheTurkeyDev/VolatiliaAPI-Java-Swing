@@ -1,0 +1,19 @@
+package GameAPI.graphics;
+
+public class DefaultFont extends Font
+{
+
+	private static DefaultFont defaultFont;
+	
+	public DefaultFont()
+	{
+		super(new ImageSheet(DefaultFont.class, "/Images/font/font.png", 128, 48), 8);
+		defaultFont = this;
+	}
+	
+	public static DefaultFont getDefaultFont()
+	{
+		return defaultFont;
+	}
+
+}
