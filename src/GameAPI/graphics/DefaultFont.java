@@ -7,7 +7,7 @@ public class DefaultFont extends Font
 	
 	public DefaultFont()
 	{
-		super(new ImageSheet(DefaultFont.class, "/Images/font/font.png", 128, 48), 8);
+		super(new ImageSheet(DefaultFont.class, "/Images/Font/font.png", 128, 48), 8);
 		defaultFont = this;
 	}
 	

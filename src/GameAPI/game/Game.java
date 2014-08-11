@@ -27,6 +27,11 @@ public class Game
 		pixels = new int[width * height];
 	}
 	
+	public void clearGame()
+	{
+		entities.clear();
+	}
+	
 	public void render()
 	{
 		renderMap();

@@ -45,6 +45,16 @@ public class Screen
 			for (int x = 0; x < width; x++)
 				pixels[width * y + x] = 0xfffff;
 	}
+	
+	public void loadScreen()
+	{
+		
+	}
+	
+	public void unLoadScreen()
+	{
+		
+	}
 
 	public void onClicked(Interactable clicked)
 	{
