@@ -20,7 +20,7 @@ public class GameAPI extends Canvas implements Runnable
 	private static final long serialVersionUID = 1L;
 
 	private static GameAPI api;
-	
+
 	private JFrame frame;
 
 	public static int width, height, scale;
@@ -30,6 +30,7 @@ public class GameAPI extends Canvas implements Runnable
 	private String frameName;
 
 	private boolean running = false;
+	private boolean loading = true;
 
 	public static boolean displayInfo = false;
 
@@ -108,7 +109,7 @@ public class GameAPI extends Canvas implements Runnable
 				timer += 1000;
 				updates = 0;
 				frames = 0;
-				
+
 			}
 		}
 	}
@@ -117,7 +118,7 @@ public class GameAPI extends Canvas implements Runnable
 	{
 		try
 		{
-		sm.getCurrentScreen().update();
+			sm.getCurrentScreen().update();
 		}catch(NullPointerException e){if(sm.getCurrentScreen()== null)return; else e.printStackTrace();}
 	}
 
@@ -134,7 +135,18 @@ public class GameAPI extends Canvas implements Runnable
 			// As long as the full size of the screen is being rendered out this isn't needed
 			//sm.getCurrentScreen().clear();
 			sm.getCurrentScreen().render();
-		}catch(NullPointerException e){if(sm.getCurrentScreen()== null){System.out.println("Screen is null!!"); return; }else e.printStackTrace();}
+			if(loading)
+				loading = false;
+		}catch(NullPointerException e)
+		{
+			if(sm.getCurrentScreen()== null && !loading)
+			{
+				System.err.println("Screen is null!!"); 
+				return;
+			}
+			else
+				e.printStackTrace();
+		}
 
 		int[] pix = sm.getCurrentScreen().pixels;
 		for(int y = 0; y < sm.getCurrentScreen().height; y++)
