@@ -72,6 +72,7 @@ public class ScreenManager
 	{
 		tiles.add(tile);
 	}
+	
 	public Tile getTileFromID(int id)
 	{
 		for(Tile t: tiles)
@@ -79,6 +80,7 @@ public class ScreenManager
 				return t;
 		return null;
 	}
+	
 	public Tile getTileFromColorCode(String code)
 	{
 		for(Tile t: tiles)

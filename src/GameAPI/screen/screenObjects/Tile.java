@@ -42,9 +42,9 @@ public class Tile
 		return SIZE;
 	}
 	
-	public int[] getPixelArray()
+	public int getPixelAt(int width, int y, int x)
 	{
-		return image.getPixels();
+		return image.getPixels()[width * y + x];
 	}
 	
 	public int getID()

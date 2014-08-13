@@ -32,7 +32,11 @@ public class GameAPI extends Canvas implements Runnable
 	private boolean running = false;
 	private boolean loading = true;
 
-	public static boolean displayInfo = false;
+	public boolean rendercheck = false;
+	public long renderStart;
+	public long lastrenderLength = 0;
+	
+	public boolean renderMapOnce = false;
 
 	private BufferedImage image;
 	private int[] pixels;
@@ -105,7 +109,10 @@ public class GameAPI extends Canvas implements Runnable
 			{
 				gFrames = frames;
 				gUpdates = updates;
-				frame.setTitle(frameName + " FPS: " + gFrames + " UPS: " + gUpdates);
+				if(rendercheck)
+					frame.setTitle(frameName + " FPS: " + gFrames + " |   " + lastrenderLength);
+				else
+					frame.setTitle(frameName + " FPS: " + gFrames);
 				timer += 1000;
 				updates = 0;
 				frames = 0;
@@ -124,6 +131,7 @@ public class GameAPI extends Canvas implements Runnable
 
 	public void render()
 	{
+		renderStart = System.nanoTime();
 		BufferStrategy strat = getBufferStrategy();
 		if(strat == null)
 		{
@@ -159,12 +167,9 @@ public class GameAPI extends Canvas implements Runnable
 
 		Graphics g = strat.getDrawGraphics();
 		g.drawImage(image, 0, 0, getWidth(), getHeight(), null);
-		if(displayInfo)
-		{
-			g.drawString(gUpdates + " ups, " + gFrames + " Frames", 0, 10);
-		}
 		g.dispose();
 		strat.show();
+		lastrenderLength = System.nanoTime() - renderStart;
 	}
 
 	public ScreenManager getScreenManager()
@@ -175,5 +180,15 @@ public class GameAPI extends Canvas implements Runnable
 	public static GameAPI getAPI()
 	{
 		return api;
+	}
+
+	public void doRenderCheck()
+	{
+		rendercheck = true;
+	}
+	
+	public void renderMapOnce()
+	{
+		renderMapOnce = true;
 	}
 }

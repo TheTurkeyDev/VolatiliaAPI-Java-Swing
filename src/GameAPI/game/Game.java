@@ -71,7 +71,7 @@ public class Game
 				{
 					int yy = ((y + ent.getLocation().getY()) - yOffset);
 					int xx = ((x + ent.getLocation().getX()) - xOffset);
-					if(ent.getPixels()[ent.getSize() * y + x] != -65316 && yy < height && xx < width)
+					if(pix[ent.getSize() * y + x] != -65316 && yy < height && xx < width)
 					pixels[width * yy  + xx] = pix[ent.getSize() * y + x];
 				}
 			}

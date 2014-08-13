@@ -30,7 +30,7 @@ public class Screen
 
 	public void update()
 	{
-
+		
 	}
 
 	public void render()
@@ -45,15 +45,15 @@ public class Screen
 			for (int x = 0; x < width; x++)
 				pixels[width * y + x] = 0xfffff;
 	}
-	
+
 	public void loadScreen()
 	{
-		
+
 	}
-	
+
 	public void unLoadScreen()
 	{
-		
+
 	}
 
 	public void onClicked(Interactable clicked)
@@ -146,7 +146,7 @@ public class Screen
 	{
 		return interactables;
 	}
-	
+
 	public void addText(Text t)
 	{
 		text.add(t);
