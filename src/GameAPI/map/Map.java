@@ -13,6 +13,8 @@ public class Map
 
 	private int width, height;
 
+	private boolean isBlankTiles = false;
+
 	public Map(int xs, int ys)
 	{
 		width = xs;
@@ -22,6 +24,10 @@ public class Map
 
 	public int[] render(int xOffset, int yOffset, int w, int h)
 	{
+		if(isBlankTiles)
+		{
+			return null;
+		}
 		if(!GameAPI.getAPI().renderMapOnce || pix == null)
 		{
 			pix = new int[w * h];
@@ -69,5 +75,10 @@ public class Map
 	public int getHeight()
 	{
 		return height;
+	}
+
+	public void setBlankTiles()
+	{
+		isBlankTiles = true;
 	}
 }

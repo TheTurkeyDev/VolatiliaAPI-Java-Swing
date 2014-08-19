@@ -109,10 +109,6 @@ public class GameAPI extends Canvas implements Runnable
 			{
 				gFrames = frames;
 				gUpdates = updates;
-				if(rendercheck)
-					frame.setTitle(frameName + " FPS: " + gFrames + " |   " + lastrenderLength);
-				else
-					frame.setTitle(frameName + " FPS: " + gFrames);
 				timer += 1000;
 				updates = 0;
 				frames = 0;
@@ -140,8 +136,7 @@ public class GameAPI extends Canvas implements Runnable
 		}
 		try
 		{
-			// As long as the full size of the screen is being rendered out this isn't needed
-			//sm.getCurrentScreen().clear();
+			sm.getCurrentScreen().clear();
 			sm.getCurrentScreen().render();
 			if(loading)
 				loading = false;
@@ -165,6 +160,7 @@ public class GameAPI extends Canvas implements Runnable
 			}
 		}
 
+		frame.setTitle(frameName);
 		Graphics g = strat.getDrawGraphics();
 		g.drawImage(image, 0, 0, getWidth(), getHeight(), null);
 		g.dispose();
@@ -190,5 +186,19 @@ public class GameAPI extends Canvas implements Runnable
 	public void renderMapOnce()
 	{
 		renderMapOnce = true;
+	}
+	
+	public int getFPS()
+	{
+		return gFrames;
+	}
+	public int getUPS()
+	{
+		return gUpdates;
+	}
+	
+	public void setTitle(String title)
+	{
+		frameName = title;
 	}
 }

@@ -2,6 +2,7 @@ package GameAPI.screen;
 
 import java.util.ArrayList;
 
+import GameAPI.graphics.Background;
 import GameAPI.graphics.Image;
 import GameAPI.graphics.Text;
 import GameAPI.main.GameAPI;
@@ -15,6 +16,8 @@ public class Screen
 	public int height, width;
 
 	public int[] pixels;
+	
+	public Background bg;
 
 	private ArrayList<SubScreen> subScreens = new ArrayList<SubScreen>();
 	private ArrayList<Interactable> interactables = new ArrayList<Interactable>();
@@ -41,9 +44,10 @@ public class Screen
 
 	public void clear()
 	{
-		for (int y = 0; y < height; y++)
-			for (int x = 0; x < width; x++)
-				pixels[width * y + x] = 0xfffff;
+		if(bg != null)
+		{
+			pixels = bg.getPixles();
+		}
 	}
 
 	public void loadScreen()
@@ -155,5 +159,10 @@ public class Screen
 	public ArrayList<Text> getText()
 	{
 		return text;
+	}
+	
+	public void setBackground(Background bg)
+	{
+		this.bg = bg;
 	}
 }

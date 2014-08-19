@@ -28,4 +28,9 @@ public class MapLoader
 			}
 		return map;
 	}
+	
+	public Image getMapImage()
+	{
+		return mapImage;
+	}
 }

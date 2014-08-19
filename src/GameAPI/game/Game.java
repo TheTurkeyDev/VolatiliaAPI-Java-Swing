@@ -19,9 +19,8 @@ public class Game
 	
 	private int xOffset = 0, yOffset = 0;
 	
-	public Game(Map m, int w, int h)
+	public Game(int w, int h)
 	{
-		map = m;
 		width = w;
 		height = h;
 		pixels = new int[width * height];

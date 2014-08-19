@@ -4,7 +4,7 @@ import GameAPI.graphics.Image;
 
 public class Tile
 {
-	public final static int SIZE = 32;
+	public static int SIZE = 32;
 	protected int id;
 	protected String colorID;
 	protected String name;
@@ -54,5 +54,10 @@ public class Tile
 	public String getColorCode()
 	{
 		return colorID;
+	}
+	
+	public static void setTileSize(int s)
+	{
+		SIZE = s;
 	}
 }

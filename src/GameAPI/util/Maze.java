@@ -27,6 +27,14 @@ public class Maze
 		return pixels;
 	}
 
+	/**
+	 * 
+	 * @param multiple
+	 * @param x1
+	 * @param y1
+	 * @param x2
+	 * @param y2
+	 */
 	public void generate(boolean multiple, int x1, int y1, int x2, int y2)
 	{
 		multiplePaths = multiple;
