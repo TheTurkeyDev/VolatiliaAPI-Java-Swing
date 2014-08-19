@@ -48,6 +48,16 @@ public class Screen
 		{
 			pixels = bg.getPixles();
 		}
+		else
+		{
+			for(int x = 0; x < width; x++)
+			{
+				for(int y = 0; y < height; y++)
+				{
+					pixels[width * y + x] = 0x000000;
+				}
+			}
+		}
 	}
 
 	public void loadScreen()
