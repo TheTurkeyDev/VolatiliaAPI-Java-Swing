@@ -14,4 +14,14 @@ public class Background
 	{
 		return image.getPixels().clone();
 	}
+	
+	public int getWidth()
+	{
+		return image.getWidth();
+	}
+	
+	public int getHeight()
+	{
+		return image.getHeight();
+	}
 }

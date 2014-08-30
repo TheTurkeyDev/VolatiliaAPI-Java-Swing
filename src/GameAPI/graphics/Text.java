@@ -5,8 +5,10 @@ import GameAPI.util.Location;
 public class Text
 {
 
-	Image[] string;
-	int x, y;
+	private Image[] string;
+	private int x, y;
+	
+	private boolean visible = true;
 	
 	public Text(Image[] stringImage, int xLoc, int yLoc)
 	{
@@ -33,5 +35,18 @@ public class Text
 	public void setText(Image[] newString)
 	{
 		string = newString;
+	}
+	
+	public void show()
+	{
+		visible = true;
+	}
+	public void hide()
+	{
+		visible = false;
+	}	
+	public boolean isVisible()
+	{
+		return visible;
 	}
 }

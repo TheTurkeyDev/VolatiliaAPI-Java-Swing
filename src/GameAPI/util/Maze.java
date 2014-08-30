@@ -24,7 +24,7 @@ public class Maze
 
 	public int[] getPixels()
 	{
-		return pixels;
+		return pixels.clone();
 	}
 
 	/**

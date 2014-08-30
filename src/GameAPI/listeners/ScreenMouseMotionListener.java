@@ -11,7 +11,7 @@ public class ScreenMouseMotionListener extends MouseMotionAdapter
 {
 	public static Interactable currentHover;
 
-	int x = 0, y = 0;
+	private static int x = 0, y = 0;
 	public void mouseMoved(MouseEvent e)
 	{
 		x = e.getX();
@@ -34,11 +34,11 @@ public class ScreenMouseMotionListener extends MouseMotionAdapter
 		}
 	}
 
-	public int getX()
+	public static int getX()
 	{
 		return x;
 	}
-	public int getY()
+	public static int getY()
 	{
 		return y;
 	}

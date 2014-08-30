@@ -27,7 +27,7 @@ public class Image
 	
 	public int[] getPixels()
 	{
-		return pixels;
+		return pixels.clone();
 	}
 	
 	public int getWidth()

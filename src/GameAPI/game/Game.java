@@ -10,33 +10,33 @@ import GameAPI.util.Location;
 public class Game
 {
 	private ArrayList<Entity> entities = new ArrayList<Entity>();
-	
-	private Map map;
-	
+
+	private Map map = null;
+
 	private int width, height;
-	
-	private int[] pixels;
-	
+
+	protected int[] pixels;
+
 	private int xOffset = 0, yOffset = 0;
-	
+
 	public Game(int w, int h)
 	{
 		width = w;
 		height = h;
 		pixels = new int[width * height];
 	}
-	
+
 	public void clearGame()
 	{
 		entities.clear();
 	}
-	
+
 	public void render()
 	{
 		renderMap();
 		renderEntities();
 	}
-	
+
 	public void update()
 	{
 		for(int i = 0; i < entities.size(); i++)
@@ -50,43 +50,44 @@ public class Game
 			}
 		}
 	}
-	
+
 	private void renderMap()
 	{
-		if(map == null)
-			return;
-		pixels = map.render(xOffset, yOffset, width, height);
+		if(map != null)
+			pixels = map.render(xOffset, yOffset, width, height);
 	}
-	
+
 	private void renderEntities()
 	{
 		for(Entity ent: entities)
 		{
 			ent.render();
 			int[] pix = ent.getPixels();
-			for(int x = 0; x < ent.getSize(); x++)
+			for(int x = 0; x < ent.getWidth(); x++)
 			{
-				for(int y = 0; y < ent.getSize(); y++)
+				for(int y = 0; y < ent.getHeight(); y++)
 				{
 					int yy = ((y + ent.getLocation().getY()) - yOffset);
 					int xx = ((x + ent.getLocation().getX()) - xOffset);
-					if(pix[ent.getSize() * y + x] != -65316 && yy < height && xx < width)
-					pixels[width * yy  + xx] = pix[ent.getSize() * y + x];
+					if(pix[ent.getWidth() * y + x] != -65316 && yy < height && xx < width)
+					{
+						pixels[width * yy  + xx] = pix[ent.getWidth() * y + x];
+					}
 				}
 			}
 		}
 	}
-	
+
 	public ArrayList<Entity> getEntities()
 	{
 		return entities;
 	}
-	
+
 	public void addEntity(Entity ent)
 	{
 		entities.add(ent);
 	}
-	
+
 	public boolean canMoveTo(Location loc, int size)
 	{
 		if(map.getTileAt(new Location(loc.getX() / Tile.SIZE, loc.getY() / Tile.SIZE)).solid())
@@ -107,13 +108,13 @@ public class Game
 		}
 		return true;
 	}
-	
+
 	public void setOffset(int xoff, int yoff)
 	{
 		xOffset = xoff;
 		yOffset = yoff;
 	}
-	
+
 	public Map getCurrentMap()
 	{
 		return map;
@@ -123,9 +124,19 @@ public class Game
 		map = nextmap;
 		map.generate();
 	}
-	
+
 	public int[] getPixels()
 	{
-		return pixels;
+		return pixels.clone();
+	}
+
+	public int getWidth()
+	{
+		return width;
+	}
+
+	public int getHeight()
+	{
+		return height;
 	}
 }

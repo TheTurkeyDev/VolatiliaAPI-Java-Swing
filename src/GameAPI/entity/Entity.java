@@ -9,7 +9,8 @@ public abstract class Entity
 {
 	
 	protected int x, y;
-	protected int size;
+	protected int width;
+	protected int height;
 	protected boolean isAlive = true;
 	protected Image image;
 	protected Direction facing = Direction.North;
@@ -20,7 +21,15 @@ public abstract class Entity
 	public Entity(Image i, int s, Game g)
 	{
 		image = i;
-		size = s;
+		width = s;
+		height = s;
+		game = g;
+	}
+	public Entity(Image i, int w, int h, Game g)
+	{
+		image = i;
+		width = w;
+		height = h;
 		game = g;
 	}
 	
@@ -57,12 +66,16 @@ public abstract class Entity
 	
 	public int[] getPixels()
 	{
-		return image.getPixels();
+		return image.getPixels().clone();
 	}
 	
-	public int getSize()
+	public int getWidth()
 	{
-		return size;
+		return width;
+	}
+	public int getHeight()
+	{
+		return height;
 	}
 	
 	public void stop()

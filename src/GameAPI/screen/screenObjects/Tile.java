@@ -42,6 +42,11 @@ public class Tile
 		return SIZE;
 	}
 	
+	public int[] getPixels()
+	{
+		return image.getPixels();
+	}
+	
 	public int getPixelAt(int width, int y, int x)
 	{
 		return image.getPixels()[width * y + x];
@@ -50,6 +55,10 @@ public class Tile
 	public int getID()
 	{
 		return id;
+	}
+	public String getName()
+	{
+		return name;
 	}
 	public String getColorCode()
 	{

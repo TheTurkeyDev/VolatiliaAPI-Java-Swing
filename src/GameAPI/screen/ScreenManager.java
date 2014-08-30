@@ -8,7 +8,7 @@ import GameAPI.screen.screenObjects.Tile;
 public class ScreenManager
 {
 	private Screen currentScreen;
-	public static ScreenManager sm;
+	private static ScreenManager sm;
 
 	private ArrayList<Screen> screens = new ArrayList<Screen>();
 	private ArrayList<Tile> tiles = new ArrayList<Tile>();

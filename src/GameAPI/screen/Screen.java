@@ -16,8 +16,8 @@ public class Screen
 	public int height, width;
 
 	public int[] pixels;
-	
-	public Background bg;
+
+	private Background bg;
 
 	private ArrayList<SubScreen> subScreens = new ArrayList<SubScreen>();
 	private ArrayList<Interactable> interactables = new ArrayList<Interactable>();
@@ -33,22 +33,19 @@ public class Screen
 
 	public void update()
 	{
-		
+
 	}
 
 	public void render()
 	{
 		renderInteractables();
 		renderText();
+		renderSubScreens();
 	}
 
 	public void clear()
 	{
-		if(bg != null)
-		{
-			pixels = bg.getPixles();
-		}
-		else
+		if(bg == null)
 		{
 			for(int x = 0; x < width; x++)
 			{
@@ -57,6 +54,10 @@ public class Screen
 					pixels[width * y + x] = 0x000000;
 				}
 			}
+		}
+		else
+		{
+			pixels = bg.getPixles();
 		}
 	}
 
@@ -84,16 +85,19 @@ public class Screen
 	{
 		for (SubScreen ss : subScreens)
 		{
-			ss.render();
-			int[] image = ss.pixels;
-			for (int x = 0; x < ss.getWidth(); x++)
+			if(ss.isVisible())
 			{
-				for (int y = 0; y < ss.getHeight(); y++)
+				ss.render();
+				int[] image = ss.pixels;
+				for (int x = 0; x < ss.getWidth(); x++)
 				{
-					if (ss.getY() + y >= 0 && ss.getY() + y < height && ss.getX() + x >= 0 && ss.getX() + x < width)
+					for (int y = 0; y < ss.getHeight(); y++)
 					{
-						if (image[x + y * ss.getWidth()] != -65316) 
-							pixels[width * (ss.getY() + y) + (ss.getX() + x)] = image[x + y * ss.getWidth()];
+						if (ss.getY() + y >= 0 && ss.getY() + y < height && ss.getX() + x >= 0 && ss.getX() + x < width)
+						{
+							if (image[x + y * ss.getWidth()] != -65316) 
+								pixels[width * (ss.getY() + y) + (ss.getX() + x)] = image[x + y * ss.getWidth()];
+						}
 					}
 				}
 			}
@@ -104,22 +108,27 @@ public class Screen
 	{
 		for (Interactable i : interactables)
 		{
-			int[] image = i.getCurrentPixelArray();
-			for (int y = 0; y < i.getHeight(); y++)
-			{
-				for (int x = 0; x < i.getWidth(); x++)
+			try{
+				int[] image = i.getCurrentPixelArray();
+
+				for (int y = 0; y < i.getHeight(); y++)
 				{
-					if(x < 0 || x > width || y < 0 || y >= height )break;					
-					if (image[x + y * i.getWidth()] != -65316)
-						pixels[width * (y + i .getY()) + (x + i.getX())] = image[x + y * i.getWidth()];
+					for (int x = 0; x < i.getWidth(); x++)
+					{
+						if(x < 0 || x > width || y < 0 || y >= height )break;					
+						if (image[x + y * i.getWidth()] != -65316)
+							pixels[width * (y + i .getY()) + (x + i.getX())] = image[x + y * i.getWidth()];
+					}
 				}
-			}
+			}catch(NullPointerException e){continue;}
 		}
 	}
 	public void renderText()
 	{
 		for (Text t : text)
 		{
+			if(!t.isVisible())
+				continue;
 			for(int i = 0; i < t.getImageAmount(); i++)
 			{
 				Image image = t.getImageAt(i);
@@ -129,7 +138,8 @@ public class Screen
 				{
 					for(int xLoc = 0; xLoc < image.getWidth(); xLoc++)
 					{
-						pixels[width * (t.getLocation().getY() + yLoc) + (t.getLocation().getX() + (xLoc + (w * i)))] = pix[w * yLoc + xLoc];
+						if (pix[w * yLoc + xLoc] != -65316)
+							pixels[width * (t.getLocation().getY() + yLoc) + (t.getLocation().getX() + (xLoc + (w * i)))] = pix[w * yLoc + xLoc];
 					}
 				}
 			}
@@ -170,9 +180,27 @@ public class Screen
 	{
 		return text;
 	}
-	
-	public void setBackground(Background bg)
+
+	public void setBackground(Background background)
 	{
-		this.bg = bg;
+		bg = background;
+	}
+
+	public void clearInteractables()
+	{
+		interactables.clear();
+	}
+	
+	public ArrayList<SubScreen> getVisibleSubScreens()
+	{
+		ArrayList<SubScreen> toreturn = new ArrayList<SubScreen>();
+		for (SubScreen ss : subScreens)
+		{
+			if(ss.isVisible())
+			{
+				toreturn.add(ss);
+			}
+		}
+		return toreturn;
 	}
 }

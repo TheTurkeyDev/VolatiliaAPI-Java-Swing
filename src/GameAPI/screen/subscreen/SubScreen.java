@@ -2,6 +2,7 @@ package GameAPI.screen.subscreen;
 
 import java.util.ArrayList;
 
+import GameAPI.graphics.Background;
 import GameAPI.screen.Screen;
 import GameAPI.screen.screenObjects.Interactable;
 
@@ -13,19 +14,21 @@ public class SubScreen
 	protected Screen parent;
 	protected boolean isVisible = false;
 	
+	protected Background bg;
+	
 	private ArrayList<Interactable> addons = new ArrayList<Interactable>();
 	
 	public int[] pixels;
 	
-	public SubScreen(int xloc, int yloc, int w, int h, String n, Screen p)
+	public SubScreen(int xloc, int yloc, String n, Screen p, Background bg)
 	{
 		x = xloc;
 		y = yloc;
-		width = w;
-		height = h;
+		width = bg.getWidth();
+		height = bg.getHeight();
 		name = n;
 		parent = p;
-		pixels = new int[w*h];
+		pixels = bg.getPixles();
 	}
 
 	public void render()
@@ -39,14 +42,12 @@ public class SubScreen
 				{
 					if(i.getX()+yy>=0 && i.getY()+yy<height && i.getX()+xx>=0 && i.getX()+xx<width)
 					{
-						if(image[xx + yy* i.getWidth()]!=16777215)
+						if(image[xx + yy* i.getWidth()]!= -65316)
 						pixels[(i.getX()+xx)+(i.getY()+yy)*width]= image[xx + yy* i.getWidth()];
 					}
 				}
 			}
 		}
-		//g.setColor(Color.BLUE);
-		//g.fillRect(x, y, width, height);
 	}
 
 	public void update()
@@ -59,7 +60,7 @@ public class SubScreen
 	}
 
 
-	public void onClick(int x, int y)
+	public void onClicked(Interactable i)
 	{
 
 	}
@@ -93,5 +94,15 @@ public class SubScreen
 	public int getHeight()
 	{
 		return height;
+	}
+	
+	public void addIneteractable(Interactable i)
+	{
+		addons.add(i);
+	}
+	
+	public ArrayList<Interactable> getIneteractables()
+	{
+		return addons;
 	}
 }
