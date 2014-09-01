@@ -23,7 +23,7 @@ public class GameAPI extends Canvas implements Runnable
 
 	private JFrame frame;
 
-	public static int width, height, scale;
+	public static int width, height;
 
 	private Thread thread;
 
@@ -46,25 +46,31 @@ public class GameAPI extends Canvas implements Runnable
 	private int gFrames = 0;
 	private int gUpdates = 0;
 
-	public GameAPI(String name, int w, int h, int s, JFrame f)
+	public GameAPI(String name)
 	{
-		width = w;
-		height = h;
-		scale = s;
-		frame = f;
-		Dimension size = new Dimension(width * scale, height * scale);
-		setPreferredSize(size);
 		frameName = name;
-		setFocusable(true);
-		requestFocusInWindow();
-		image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
-		pixels = ((DataBufferInt)image.getRaster().getDataBuffer()).getData();
 		sm = new ScreenManager();
 		new DefaultFont();
 		addKeyListener(new ScreenKeyListener());
 		addMouseListener(new ScreenMouseListener());
 		addMouseMotionListener(new ScreenMouseMotionListener());
 		api = this;
+	}
+	
+	public void setDisplay(Display display)
+	{
+		frame = display;
+		width = display.getWidth();
+		height = display.getHeight();
+		
+		Dimension size = new Dimension(width, height);
+		setPreferredSize(size);
+		setFocusable(true);
+		requestFocusInWindow();
+		display.add(this);
+		
+		image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+		pixels = ((DataBufferInt)image.getRaster().getDataBuffer()).getData();
 	}
 
 	public synchronized void start()

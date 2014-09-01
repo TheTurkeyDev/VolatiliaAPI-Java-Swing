@@ -17,6 +17,10 @@ public class ScreenMouseMotionListener extends MouseMotionAdapter
 		x = e.getX();
 		y = e.getY();
 		
+		if(ScreenManager.getInstance().getCurrentScreen() == null)
+		{
+			return;
+		}
 		for(Interactable i: ScreenManager.getInstance().getCurrentScreen().getInteractables())
 		{
 			if(i.contains(x, y))
