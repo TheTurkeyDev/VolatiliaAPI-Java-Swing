@@ -11,9 +11,9 @@ import javax.swing.JFrame;
 
 import GameAPI.screen.ScreenManager;
 import GameAPI.graphics.DefaultFont;
-import GameAPI.listeners.ScreenKeyListener;
-import GameAPI.listeners.ScreenMouseListener;
-import GameAPI.listeners.ScreenMouseMotionListener;
+import GameAPI.listeners.KeyListener;
+import GameAPI.listeners.MouseListener;
+import GameAPI.listeners.MouseMotionListener;
 
 public class GameAPI extends Canvas implements Runnable
 {
@@ -51,9 +51,9 @@ public class GameAPI extends Canvas implements Runnable
 		frameName = name;
 		sm = new ScreenManager();
 		new DefaultFont();
-		addKeyListener(new ScreenKeyListener());
-		addMouseListener(new ScreenMouseListener());
-		addMouseMotionListener(new ScreenMouseMotionListener());
+		addKeyListener(new KeyListener());
+		addMouseListener(new MouseListener());
+		addMouseMotionListener(new MouseMotionListener());
 		api = this;
 	}
 	

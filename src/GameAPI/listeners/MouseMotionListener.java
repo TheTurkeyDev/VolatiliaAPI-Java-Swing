@@ -7,7 +7,7 @@ import GameAPI.screen.ScreenManager;
 import GameAPI.screen.screenObjects.Interactable;
 
 
-public class ScreenMouseMotionListener extends MouseMotionAdapter
+public class MouseMotionListener extends MouseMotionAdapter
 {
 	public static Interactable currentHover;
 

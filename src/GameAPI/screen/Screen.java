@@ -1,10 +1,12 @@
 package GameAPI.screen;
 
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
 import GameAPI.graphics.Background;
 import GameAPI.graphics.Image;
 import GameAPI.graphics.Text;
+import GameAPI.listeners.KeyListener;
 import GameAPI.main.GameAPI;
 import GameAPI.screen.screenObjects.Interactable;
 import GameAPI.screen.subscreen.SubScreen;
@@ -33,7 +35,7 @@ public class Screen
 
 	public void update()
 	{
-
+		pollInput();
 	}
 
 	public void render()
@@ -41,6 +43,20 @@ public class Screen
 		renderInteractables();
 		renderText();
 		renderSubScreens();
+	}
+
+	private void pollInput()
+	{
+		while(KeyListener.hasnext())
+		{
+			OnKeyEvent(KeyListener.getCurrentEvent(), KeyListener.getCurrentState());
+			KeyListener.removelast();
+		}
+	}
+
+	public void OnKeyEvent(KeyEvent e, boolean pressed)
+	{
+		
 	}
 
 	public void clear()
@@ -190,7 +206,7 @@ public class Screen
 	{
 		interactables.clear();
 	}
-	
+
 	public ArrayList<SubScreen> getVisibleSubScreens()
 	{
 		ArrayList<SubScreen> toreturn = new ArrayList<SubScreen>();

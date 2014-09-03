@@ -9,7 +9,7 @@ import GameAPI.screen.subscreen.SubScreen;
 import GameAPI.util.Location;
 
 
-public class ScreenMouseListener extends MouseAdapter
+public class MouseListener extends MouseAdapter
 {
 	int x = 0, y = 0;
 	public void mouseClicked(MouseEvent e)
