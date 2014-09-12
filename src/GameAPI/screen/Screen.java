@@ -7,7 +7,7 @@ import GameAPI.graphics.Background;
 import GameAPI.graphics.Image;
 import GameAPI.graphics.Text;
 import GameAPI.listeners.KeyListener;
-import GameAPI.main.GameAPI;
+import GameAPI.main.VolatiliaAPI;
 import GameAPI.screen.screenObjects.Interactable;
 import GameAPI.screen.subscreen.SubScreen;
 
@@ -28,8 +28,8 @@ public class Screen
 	public Screen(String n)
 	{
 		name = n;
-		height = GameAPI.height;
-		width = GameAPI.width;
+		height = VolatiliaAPI.height;
+		width = VolatiliaAPI.width;
 		pixels = new int[width * height];
 	}
 

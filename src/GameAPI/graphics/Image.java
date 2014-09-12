@@ -17,6 +17,17 @@ public class Image
 		loadPixels();
 	}
 	
+	public Image(ImageSheet img)
+	{
+		image = img;
+		width = img.getWidth();
+		height = img.getHeight();
+		x = 0;
+		y = 0;
+		pixels = new int[width * height];
+		loadPixels();
+	}
+	
 	private void loadPixels()
 	{
 		int[] imagePix = image.getPixels();

@@ -1,6 +1,6 @@
 package GameAPI.map;
 
-import GameAPI.main.GameAPI;
+import GameAPI.main.VolatiliaAPI;
 import GameAPI.screen.ScreenManager;
 import GameAPI.screen.screenObjects.Tile;
 import GameAPI.util.Location;
@@ -28,7 +28,7 @@ public class Map
 		{
 			return null;
 		}
-		if(!GameAPI.getAPI().renderMapOnce || pix == null)
+		if(!VolatiliaAPI.getAPI().renderMapOnce || pix == null)
 		{
 			pix = new int[w * h];
 			ScreenManager sm = ScreenManager.getInstance();

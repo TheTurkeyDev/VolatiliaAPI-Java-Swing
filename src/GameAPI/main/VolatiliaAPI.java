@@ -15,11 +15,11 @@ import GameAPI.listeners.KeyListener;
 import GameAPI.listeners.MouseListener;
 import GameAPI.listeners.MouseMotionListener;
 
-public class GameAPI extends Canvas implements Runnable
+public class VolatiliaAPI extends Canvas implements Runnable
 {
 	private static final long serialVersionUID = 1L;
 
-	private static GameAPI api;
+	private static VolatiliaAPI api;
 
 	private JFrame frame;
 
@@ -46,7 +46,7 @@ public class GameAPI extends Canvas implements Runnable
 	private int gFrames = 0;
 	private int gUpdates = 0;
 
-	public GameAPI(String name)
+	public VolatiliaAPI(String name)
 	{
 		frameName = name;
 		sm = new ScreenManager();
@@ -179,7 +179,7 @@ public class GameAPI extends Canvas implements Runnable
 		return sm;
 	}
 
-	public static GameAPI getAPI()
+	public static VolatiliaAPI getAPI()
 	{
 		return api;
 	}
