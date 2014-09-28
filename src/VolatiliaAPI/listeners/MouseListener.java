@@ -24,6 +24,7 @@ public class MouseListener extends MouseAdapter
 				ScreenManager.getInstance().getCurrentScreen().onClicked(i);
 			}
 		}
+		
 		for(SubScreen ss: ScreenManager.getInstance().getCurrentScreen().getVisibleSubScreens())
 		{
 			for(Interactable i: ss.getIneteractables())

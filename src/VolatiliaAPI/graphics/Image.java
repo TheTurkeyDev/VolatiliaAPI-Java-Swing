@@ -17,6 +17,15 @@ public class Image
 		loadPixels();
 	}
 	
+	public Image(int[] pix, int w, int h)
+	{
+		pixels = pix;
+		width = w;
+		height = h;
+		x = 0;
+		y = 0;
+	}
+	
 	public Image(ImageSheet img)
 	{
 		image = img;

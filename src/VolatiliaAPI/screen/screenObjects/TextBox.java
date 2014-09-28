@@ -2,60 +2,35 @@ package VolatiliaAPI.screen.screenObjects;
 
 import VolatiliaAPI.graphics.Image;
 
-public class TextBox 
+public class TextBox extends InputInteractable
 {
-	int x;
-	int y;
-	int xSize;
-	int ySize;
-	int indent = 0;
-	boolean isSelected = false;
-	Image Selected, Unselected;
-	String text;
+	private boolean isOneLine = false;
+	private boolean isEnterAsReturn = true;
 	
-	public TextBox(int Bx, int By, int BxSize, int BySize, Image Image)
+	public TextBox(int x, int y, int width, int height, Image image, String name)
 	{
-		x = Bx;
-		y = By;
-		xSize = BxSize;
-		ySize = BySize;
-		Unselected = Image;
+		super(x, y, width, height, image, image, name);
 	}
-	public TextBox(int Bx, int By, int BxSize, int BySize, Image SelectedImage, Image UnSelectedImage)
+	public TextBox(int x, int y, int width, int height, Image sImage, Image usImage, String name)
 	{
-		x = Bx;
-		y = By;
-		xSize = BxSize;
-		ySize = BySize;
-		Selected = SelectedImage;
-		Unselected = UnSelectedImage;
-	}
-	public TextBox(int Bx, int By, int BxSize, int BySize, int Indent, Image SelectedImage, Image UnSelectedImage)
-	{
-		x = Bx;
-		y = By;
-		xSize = BxSize;
-		ySize = BySize;
-		Selected = SelectedImage;
-		Unselected = UnSelectedImage;
-		indent = Indent;
+		super(x, y, width, height, sImage, usImage, name);
 	}
 	
-	public boolean contains(int xloc, int yloc)
+	public void setEnterAsReturn(boolean toggle)
 	{
-		if((xloc > x && xloc < x + xSize) && (yloc > y && xloc < y + ySize))
-		{
-			return true;
-		}
-		return false;
+		isEnterAsReturn = toggle;
+	}
+	public boolean isEnterAsReturn()
+	{
+		return isEnterAsReturn;
 	}
 	
-	public void addletter(String letter)
+	public void setOneLine(boolean toggle)
 	{
-		text = text + "" + letter;
+		isOneLine = toggle;
 	}
-	public void removeletter()
+	public boolean isOneLine()
 	{
-		text = text.substring(text.length()-1);
+		return isOneLine;
 	}
 }
