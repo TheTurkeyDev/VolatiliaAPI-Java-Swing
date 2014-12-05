@@ -8,6 +8,7 @@ import VolatiliaAPI.graphics.Background;
 import VolatiliaAPI.graphics.Image;
 import VolatiliaAPI.graphics.Text;
 import VolatiliaAPI.graphics.basic.BasicObject;
+import VolatiliaAPI.graphics.basic.Circle;
 import VolatiliaAPI.graphics.basic.Rectangle;
 import VolatiliaAPI.listeners.KeyListener;
 import VolatiliaAPI.main.APIMain;
@@ -196,7 +197,7 @@ public class Screen
 				for (int x = 0; x < bo.getWidth(); x++)
 				{
 					if(x < 0 || x > width || y < 0 || y >= height )break;
-					if (image[x + y * bo.getWidth()] != -ScreenManager.getInstance().getOmmitColor())
+					if (image[x + y * bo.getWidth()] != ScreenManager.getInstance().getOmmitColor())
 						pixels[width * (y + bo.getY()) + (x + bo.getX())] = image[x + y * bo.getWidth()];
 				}
 			}
@@ -266,6 +267,13 @@ public class Screen
 		Rectangle rect = new Rectangle(x, y, w, h, c);
 		basic.add(rect);
 		return rect;
+	}
+	
+	public Circle addCirlce(int x, int y, int r, Color c)
+	{
+		Circle circ = new Circle(x, y, r, c);
+		basic.add(circ);
+		return circ;
 	}
 
 	public void setSelectedInteractable(Interactable i)

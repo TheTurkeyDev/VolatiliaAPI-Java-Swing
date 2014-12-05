@@ -29,5 +29,4 @@ public class Rectangle extends BasicObject
 			}
 		}
 	}
-
 }

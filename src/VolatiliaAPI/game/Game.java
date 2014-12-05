@@ -1,8 +1,11 @@
 package VolatiliaAPI.game;
 
+import java.awt.Color;
 import java.util.ArrayList;
 
 import VolatiliaAPI.entity.Entity;
+import VolatiliaAPI.graphics.basic.BasicObject;
+import VolatiliaAPI.graphics.basic.Rectangle;
 import VolatiliaAPI.map.Map;
 import VolatiliaAPI.screen.ScreenManager;
 import VolatiliaAPI.screen.screenObjects.Tile;
@@ -11,6 +14,7 @@ import VolatiliaAPI.util.Location;
 public class Game
 {
 	private ArrayList<Entity> entities = new ArrayList<Entity>();
+	private ArrayList<BasicObject> basic = new ArrayList<BasicObject>();
 
 	private Map map = null;
 
@@ -35,6 +39,7 @@ public class Game
 	public void render()
 	{
 		renderMap();
+		renderBasicObjects();
 		renderEntities();
 	}
 
@@ -78,6 +83,24 @@ public class Game
 					{
 						pixels[width * yy  + xx] = pix[ent.getWidth() * y + x];
 					}
+				}
+			}
+		}
+	}
+	
+	public void renderBasicObjects()
+	{
+		for (BasicObject bo : basic)
+		{
+			int[] image = bo.getPixles();
+
+			for (int y = 0; y < bo.getHeight(); y++)
+			{
+				for (int x = 0; x < bo.getWidth(); x++)
+				{
+					if(x < 0 || x > width || y < 0 || y >= height )break;
+					if (image[x + y * bo.getWidth()] != ScreenManager.getInstance().getOmmitColor())
+						pixels[width * (y + bo.getY()) + (x + bo.getX())] = image[x + y * bo.getWidth()];
 				}
 			}
 		}
@@ -143,5 +166,12 @@ public class Game
 	public int getHeight()
 	{
 		return height;
+	}
+	
+	public Rectangle addRectangle(int x, int y, int w, int h, Color c)
+	{
+		Rectangle rect = new Rectangle(x, y, w, h, c);
+		basic.add(rect);
+		return rect;
 	}
 }
