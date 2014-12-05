@@ -108,7 +108,9 @@ public class APIMain extends Canvas implements Runnable
 				updates++;
 				delta--;
 			}
+			try{
 			render();
+			}catch(IllegalStateException e){System.err.println("No Display is Set!!");}
 			frames++;
 
 			if(System.currentTimeMillis() - timer > 1000)
@@ -148,7 +150,7 @@ public class APIMain extends Canvas implements Runnable
 				loading = false;
 		}catch(NullPointerException e)
 		{
-			if(sm.getCurrentScreen()== null && !loading)
+			if(sm.getCurrentScreen()== null)
 			{
 				System.err.println("Screen is null!!"); 
 				return;

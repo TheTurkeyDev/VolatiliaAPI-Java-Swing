@@ -12,6 +12,8 @@ public class ScreenManager
 
 	private ArrayList<Screen> screens = new ArrayList<Screen>();
 	private ArrayList<Tile> tiles = new ArrayList<Tile>();
+	
+	private int ommitColor = 0x000000;
 
 	public ScreenManager()
 	{
@@ -87,5 +89,14 @@ public class ScreenManager
 			if(t.getColorCode().equalsIgnoreCase(code))
 				return t;
 		return null;
+	}
+	
+	public int getOmmitColor()
+	{
+		return ommitColor;
+	}
+	public void setOmmitColor(int color)
+	{
+		ommitColor = color;
 	}
 }

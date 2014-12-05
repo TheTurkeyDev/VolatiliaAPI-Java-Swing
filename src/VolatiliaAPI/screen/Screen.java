@@ -11,6 +11,7 @@ import VolatiliaAPI.graphics.basic.BasicObject;
 import VolatiliaAPI.graphics.basic.Rectangle;
 import VolatiliaAPI.listeners.KeyListener;
 import VolatiliaAPI.main.APIMain;
+import VolatiliaAPI.screen.screenObjects.InputInteractable;
 import VolatiliaAPI.screen.screenObjects.Interactable;
 import VolatiliaAPI.screen.subscreen.SubScreen;
 
@@ -23,6 +24,8 @@ public class Screen
 	public int[] pixels;
 
 	private Background bg;
+
+	private Interactable selected = null;
 
 	private ArrayList<SubScreen> subScreens = new ArrayList<SubScreen>();
 	private ArrayList<Interactable> interactables = new ArrayList<Interactable>();
@@ -61,7 +64,21 @@ public class Screen
 
 	public void OnKeyEvent(KeyEvent e, boolean pressed)
 	{
-		
+		if(selected != null && selected instanceof InputInteractable)
+		{
+			if(pressed)
+			{
+				InputInteractable ii = ((InputInteractable)selected);
+				if(e.getKeyCode() == 8)
+				{
+					ii.removeletter();
+				}
+				else if(e.getKeyCode() >= 32 && e.getKeyCode() <= 127)
+				{
+					ii.addletter("" + e.getKeyChar());
+				}
+			}
+		}
 	}
 
 	public void clear()
@@ -94,12 +111,12 @@ public class Screen
 
 	public void onClicked(Interactable clicked)
 	{
-
+		selected = clicked;
 	}
 
 	public void onHover(Interactable clicked)
 	{
-
+		selected = clicked;
 	}
 
 	public void renderSubScreens()
@@ -116,7 +133,7 @@ public class Screen
 					{
 						if (ss.getY() + y >= 0 && ss.getY() + y < height && ss.getX() + x >= 0 && ss.getX() + x < width)
 						{
-							if (image[x + y * ss.getWidth()] != -65316) 
+							if (image[x + y * ss.getWidth()] != ScreenManager.getInstance().getOmmitColor()) 
 								pixels[width * (ss.getY() + y) + (ss.getX() + x)] = image[x + y * ss.getWidth()];
 						}
 					}
@@ -137,14 +154,14 @@ public class Screen
 					for (int x = 0; x < i.getWidth(); x++)
 					{
 						if(x < 0 || x > width || y < 0 || y >= height )break;					
-						if (image[x + y * i.getWidth()] != -65316)
+						if (image[x + y * i.getWidth()] != ScreenManager.getInstance().getOmmitColor())
 							pixels[width * (y + i.getY()) + (x + i.getX())] = image[x + y * i.getWidth()];
 					}
 				}
 			}catch(NullPointerException e){continue;}
 		}
 	}
-	
+
 	public void renderText()
 	{
 		for (Text t : text)
@@ -160,14 +177,14 @@ public class Screen
 				{
 					for(int xLoc = 0; xLoc < image.getWidth(); xLoc++)
 					{
-						if (pix[w * yLoc + xLoc] != -65316)
+						if (pix[w * yLoc + xLoc] != ScreenManager.getInstance().getOmmitColor())
 							pixels[width * (t.getLocation().getY() + yLoc) + (t.getLocation().getX() + (xLoc + (w * i)))] = pix[w * yLoc + xLoc];
 					}
 				}
 			}
 		}
 	}
-	
+
 	public void renderBasicObjects()
 	{
 		for (BasicObject bo : basic)
@@ -179,7 +196,7 @@ public class Screen
 				for (int x = 0; x < bo.getWidth(); x++)
 				{
 					if(x < 0 || x > width || y < 0 || y >= height )break;
-					if (image[x + y * bo.getWidth()] != -65316)
+					if (image[x + y * bo.getWidth()] != -ScreenManager.getInstance().getOmmitColor())
 						pixels[width * (y + bo.getY()) + (x + bo.getX())] = image[x + y * bo.getWidth()];
 				}
 			}
@@ -243,11 +260,16 @@ public class Screen
 		}
 		return toreturn;
 	}
-	
+
 	public Rectangle addRectangle(int x, int y, int w, int h, Color c)
 	{
 		Rectangle rect = new Rectangle(x, y, w, h, c);
 		basic.add(rect);
 		return rect;
+	}
+
+	public void setSelectedInteractable(Interactable i)
+	{
+		selected = i;
 	}
 }

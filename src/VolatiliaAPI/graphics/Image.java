@@ -1,5 +1,7 @@
 package VolatiliaAPI.graphics;
 
+import VolatiliaAPI.screen.ScreenManager;
+
 public class Image 
 {
 	private ImageSheet image;
@@ -42,6 +44,7 @@ public class Image
 		int[] imagePix = image.getPixels();
 		for(int xx = 0; xx < width; xx++)
 			for(int yy = 0; yy < height; yy++)
+				if(imagePix[(y+yy)*image.getWidth() + (x+xx)] != ScreenManager.getInstance().getOmmitColor())
 				pixels[width*yy+xx] = imagePix[(y+yy)*image.getWidth() + (x+xx)];
 	}
 	

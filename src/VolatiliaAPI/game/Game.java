@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import VolatiliaAPI.entity.Entity;
 import VolatiliaAPI.map.Map;
+import VolatiliaAPI.screen.ScreenManager;
 import VolatiliaAPI.screen.screenObjects.Tile;
 import VolatiliaAPI.util.Location;
 
@@ -42,6 +43,8 @@ public class Game
 		for(int i = 0; i < entities.size(); i++)
 		{
 			Entity ent = entities.get(i);
+			if(ent==null)
+				continue;
 			ent.update();
 			if(!ent.isAlive())
 			{
@@ -61,6 +64,8 @@ public class Game
 	{
 		for(Entity ent: entities)
 		{
+			if(ent==null)
+				continue;
 			ent.render();
 			int[] pix = ent.getPixels();
 			for(int x = 0; x < ent.getWidth(); x++)
@@ -69,7 +74,7 @@ public class Game
 				{
 					int yy = ((y + ent.getLocation().getY()) - yOffset);
 					int xx = ((x + ent.getLocation().getX()) - xOffset);
-					if(pix[ent.getWidth() * y + x] != -65316 && yy < height && xx < width)
+					if(pix[ent.getWidth() * y + x] != ScreenManager.getInstance().getOmmitColor() && yy < height && xx < width)
 					{
 						pixels[width * yy  + xx] = pix[ent.getWidth() * y + x];
 					}

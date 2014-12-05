@@ -16,12 +16,14 @@ public class MouseListener extends MouseAdapter
 	{
 		x = e.getX();
 		y = e.getY();
+		boolean interactableClicked = false;
 		for(Interactable i: ScreenManager.getInstance().getCurrentScreen().getInteractables())
 		{
 			if(i.contains(x, y))
 			{
 				i.onClick();
 				ScreenManager.getInstance().getCurrentScreen().onClicked(i);
+				interactableClicked = true;
 			}
 		}
 		
@@ -33,8 +35,14 @@ public class MouseListener extends MouseAdapter
 				{
 					i.onClick();
 					ss.onClicked(i);
+					interactableClicked = true;
 				}
 			}
+		}
+		
+		if(!interactableClicked)
+		{
+			ScreenManager.getInstance().getCurrentScreen().setSelectedInteractable(null);
 		}
 	}
 	
