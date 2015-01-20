@@ -62,4 +62,19 @@ public class Image
 		return height;
 	}
 	
+	public Image scale(int scale)
+	{
+		int w = width*scale;
+		int h = height*scale;
+		int[] pix = new int[w*h];
+		for(int xx = 0; xx < w; xx++)
+		{
+			for(int yy = 0; yy < h; yy++)
+			{
+				pix[w*yy+xx] = pixels[width*(yy/scale)+(xx/scale)];
+			}
+		}
+		return new Image(pix,w,h);
+	}
+	
 }
