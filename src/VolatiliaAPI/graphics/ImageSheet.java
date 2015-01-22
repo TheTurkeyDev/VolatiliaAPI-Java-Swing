@@ -13,13 +13,10 @@ public class ImageSheet
 	private Class<?> c;
 	private String path;
 	
-	public ImageSheet(Class<?> cl,String p, int w, int h)
+	public ImageSheet(Class<?> cl,String p)
 	{
 		c = cl;
 		path = p;
-		width = w;
-		height = h;
-		pixels = new int[width * height];
 		load();
 	}
 	
@@ -28,6 +25,9 @@ public class ImageSheet
 		try
 		{
 			BufferedImage image = ImageIO.read(c.getResource(path));
+			width = image.getWidth();
+			height = image.getHeight();
+			pixels = new int[width * height];
 			image.getRGB(0, 0, width, height, pixels, 0, width);
 		} catch (IOException e){
 			e.printStackTrace();
@@ -47,5 +47,4 @@ public class ImageSheet
 	{
 		return height;
 	}
-	
 }
