@@ -32,7 +32,6 @@ public class Screen
 	private ArrayList<Interactable> interactables = new ArrayList<Interactable>();
 	private ArrayList<Text> text = new ArrayList<Text>();
 	private ArrayList<BasicObject> basic = new ArrayList<BasicObject>();
-
 	public Screen(String n)
 	{
 		name = n;
@@ -267,6 +266,11 @@ public class Screen
 		Rectangle rect = new Rectangle(x, y, w, h, c);
 		basic.add(rect);
 		return rect;
+	}
+	
+	public void addBasicObejct(BasicObject obj)
+	{
+		basic.add(obj);
 	}
 	
 	public Circle addCirlce(int x, int y, int r, Color c)

@@ -98,7 +98,7 @@ public class Game
 			{
 				for (int x = 0; x < bo.getWidth(); x++)
 				{
-					if(x < 0 || x > width || y < 0 || y >= height )break;
+					if(x < 0 || x + bo.getX() > width-1 || y < 0 || y + bo.getY() > height-1)break;
 					if (image[x + y * bo.getWidth()] != ScreenManager.getInstance().getOmmitColor())
 						pixels[width * (y + bo.getY()) + (x + bo.getX())] = image[x + y * bo.getWidth()];
 				}
@@ -173,5 +173,20 @@ public class Game
 		Rectangle rect = new Rectangle(x, y, w, h, c);
 		basic.add(rect);
 		return rect;
+	}
+	
+	public void addBasicObject(BasicObject obj)
+	{
+		basic.add(obj);
+	}
+	
+	public void clearBasicObjects()
+	{
+		basic.clear();
+	}
+	
+	public ArrayList<BasicObject> getBasicObjects()
+	{
+		return basic;
 	}
 }

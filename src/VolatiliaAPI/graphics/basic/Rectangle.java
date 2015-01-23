@@ -19,7 +19,7 @@ public class Rectangle extends BasicObject
 		setPixels();
 	}
 
-	private void setPixels()
+	public void setPixels()
 	{
 		for(int y = 0; y < height; y++)
 		{
