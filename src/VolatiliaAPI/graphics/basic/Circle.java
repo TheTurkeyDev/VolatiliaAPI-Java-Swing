@@ -32,7 +32,6 @@ public class Circle extends BasicObject
 			for(int xloc = 0; xloc < width; xloc++)
 			{
 				double dist = Math.sqrt(Math.pow(xloc - cx , 2) + Math.pow(yloc - cy , 2));
-				System.out.println(dist);
 				if(dist <= radius)
 					pixels[width * yloc + xloc] = color.getRGB();
 				else

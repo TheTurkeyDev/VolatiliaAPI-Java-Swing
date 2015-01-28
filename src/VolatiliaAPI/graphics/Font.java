@@ -7,15 +7,15 @@ public class Font
 	private int size;
 	private int incSize;
 	private Image[] letters = new Image[96];
-	
+
 	public Font(ImageSheet fs, int s)
 	{
 		fontSheet = fs;
 		size = s;
-		incSize = size;
+		incSize = 1;
 		loadCharecters();
 	}
-	
+
 	private void loadCharecters()
 	{
 		for(int y = 0; y < (fontSheet.getHeight()/size); y++)
@@ -23,15 +23,12 @@ public class Font
 			for(int x = 0; x < (fontSheet.getWidth()/size); x++)
 			{
 				Image image = new Image(fontSheet, x * size, y * size, size, size);
-				if(incSize != size)
-				{
-					image = image.scale(incSize);
-				}
+				image = image.scale(incSize);
 				letters[(fontSheet.getWidth() / size) * y + x] = image;
 			}
 		}
 	}
-	
+
 	public Image[] getStringImage(String s)
 	{
 		Image[] stringImages = new Image[s.length()];
@@ -41,12 +38,21 @@ public class Font
 		}
 		return stringImages;
 	}
-	
+
 	public Font setMultiplySize(int s)
 	{
 		incSize = s;
 		loadCharecters();
 		return this;
 	}
-	
+
+	public int GetBaseSize()
+	{
+		return size;
+	}
+
+	public int GetCurrentSize()
+	{
+		return size*incSize;
+	}
 }

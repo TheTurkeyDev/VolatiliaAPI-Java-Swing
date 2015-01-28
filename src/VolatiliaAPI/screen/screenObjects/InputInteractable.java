@@ -2,6 +2,7 @@ package VolatiliaAPI.screen.screenObjects;
 
 import VolatiliaAPI.graphics.DefaultFont;
 import VolatiliaAPI.graphics.Image;
+import VolatiliaAPI.screen.ScreenManager;
 
 public class InputInteractable extends Interactable
 {
@@ -62,7 +63,7 @@ public class InputInteractable extends Interactable
 			{
 				for(int xLoc = 0; xLoc < w; xLoc++)
 				{
-					if (pix[w * yLoc + xLoc] != -65316)
+					if (pix[w * yLoc + xLoc] != ScreenManager.getInstance().getOmmitColor())
 						pixels[currentImage.getWidth() * ((yLoc + IHeight/2) - (image.getHeight()/2)) + (indent + (i*w + xLoc))] = pix[w * yLoc + xLoc];
 				}
 			}
