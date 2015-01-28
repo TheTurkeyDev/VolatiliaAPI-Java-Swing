@@ -146,19 +146,18 @@ public class Screen
 	{
 		for (Interactable i : interactables)
 		{
-			try{
-				int[] image = i.getCurrentPixelArray();
+			if(!i.isVisible())continue;
+			int[] image = i.getCurrentPixelArray();
 
-				for (int y = 0; y < i.getHeight(); y++)
+			for (int y = 0; y < i.getHeight(); y++)
+			{
+				for (int x = 0; x < i.getWidth(); x++)
 				{
-					for (int x = 0; x < i.getWidth(); x++)
-					{
-						if(x < 0 || x > width || y < 0 || y >= height )break;					
-						if (image[x + y * i.getWidth()] != ScreenManager.getInstance().getOmmitColor())
-							pixels[width * (y + i.getY()) + (x + i.getX())] = image[x + y * i.getWidth()];
-					}
+					if(x < 0 || x > width || y < 0 || y >= height )break;					
+					if (image[x + y * i.getWidth()] != ScreenManager.getInstance().getOmmitColor())
+						pixels[width * (y + i.getY()) + (x + i.getX())] = image[x + y * i.getWidth()];
 				}
-			}catch(NullPointerException e){continue;}
+			}
 		}
 	}
 
