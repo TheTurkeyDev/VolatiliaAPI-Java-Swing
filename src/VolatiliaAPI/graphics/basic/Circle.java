@@ -25,13 +25,11 @@ public class Circle extends BasicObject
 
 	private void setPixels()
 	{
-		int cx = width/2;
-		int cy = height/2;
 		for(int yloc = 0; yloc < height; yloc++)
 		{
 			for(int xloc = 0; xloc < width; xloc++)
 			{
-				double dist = Math.sqrt(Math.pow(xloc - cx , 2) + Math.pow(yloc - cy , 2));
+				double dist = Math.sqrt(Math.pow(xloc - radius , 2) + Math.pow(yloc - radius , 2));
 				if(dist <= radius)
 					pixels[width * yloc + xloc] = color.getRGB();
 				else
