@@ -272,7 +272,7 @@ public class Screen
 		basic.add(obj);
 	}
 	
-	public Circle addCirlce(int x, int y, int r, Color c)
+	public Circle addCircle(int x, int y, int r, Color c)
 	{
 		Circle circ = new Circle(x, y, r, c);
 		basic.add(circ);
