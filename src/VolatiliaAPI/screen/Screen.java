@@ -177,7 +177,10 @@ public class Screen
 					for(int xLoc = 0; xLoc < image.getWidth(); xLoc++)
 					{
 						if (pix[w * yLoc + xLoc] != ScreenManager.getInstance().getOmmitColor())
+						{
+							System.out.println(pix[w * yLoc + xLoc]);
 							pixels[width * (t.getLocation().getY() + yLoc) + (t.getLocation().getX() + (xLoc + (w * i)))] = pix[w * yLoc + xLoc];
+						}
 					}
 				}
 			}

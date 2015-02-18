@@ -6,7 +6,7 @@ import VolatiliaAPI.screen.ScreenManager;
 
 public class TextBox extends InputInteractable
 {
-	private boolean isOneLine = true;
+	private int maxlines = 1;
 	private boolean isEnterAsReturn = true;
 
 	private int maxchars = 0;
@@ -14,12 +14,12 @@ public class TextBox extends InputInteractable
 	public TextBox(int x, int y, int width, int height, Image image, String name)
 	{
 		super(x, y, width, height, image, image, name);
-		maxchars = (image.getWidth() - indent)/DefaultFont.getDefaultFont().GetCurrentSize() - 1;
+		maxchars = ((image.getWidth() - indent)/DefaultFont.getDefaultFont().GetCurrentSize() - 1)*maxlines;
 	}
 	public TextBox(int x, int y, int width, int height, Image sImage, Image usImage, String name)
 	{
 		super(x, y, width, height, sImage, usImage, name);
-		maxchars = (sImage.getWidth() - indent)/DefaultFont.getDefaultFont().GetCurrentSize() - 1;
+		maxchars = ((sImage.getWidth() - indent)/DefaultFont.getDefaultFont().GetCurrentSize() - 1)*maxlines;
 	}
 
 	public void setEnterAsReturn(boolean toggle)
@@ -31,13 +31,14 @@ public class TextBox extends InputInteractable
 		return isEnterAsReturn;
 	}
 
-	public void setOneLine(boolean toggle)
+	public void setMaxLines(int max)
 	{
-		isOneLine = toggle;
+		maxlines = max;
+		maxchars = ((super.getCurrentImage().getWidth() - indent)/DefaultFont.getDefaultFont().GetCurrentSize() - 1)*maxlines;
 	}
 	public boolean isOneLine()
 	{
-		return isOneLine;
+		return maxlines==1;
 	}
 
 	public Image getCurrentImage()
@@ -48,8 +49,16 @@ public class TextBox extends InputInteractable
 		int[] pixels = currentImage.getPixels();
 		int IWidth = currentImage.getWidth();
 		int IHeight = currentImage.getHeight();
+		int linenum = 0;
+		int verticleIndent = 0;
+		if(maxlines == 1)
+			verticleIndent = IHeight/2;
 		for(int i  = 0; i < charecters.length; i++)
 		{
+			if(i > maxchars/maxlines)
+			{
+				linenum = i / (maxchars/maxlines);
+			}
 			Image image = charecters[i];
 			int[] pix = image.getPixels();
 			int w = image.getWidth();
@@ -60,7 +69,7 @@ public class TextBox extends InputInteractable
 				for(int xLoc = 0; xLoc < w; xLoc++)
 				{
 					if (pix[w * yLoc + xLoc] != ScreenManager.getInstance().getOmmitColor())
-						pixels[currentImage.getWidth() * ((yLoc + IHeight/2) - (image.getHeight()/2)) + (indent + (i*w + xLoc))] = pix[w * yLoc + xLoc];
+						pixels[currentImage.getWidth() * (((yLoc + verticleIndent)+linenum*h) - (verticleIndent==0?0:(image.getHeight()/2))) + (indent + (i*w + xLoc))] = pix[w * yLoc + xLoc];
 				}
 			}
 		}
@@ -69,10 +78,9 @@ public class TextBox extends InputInteractable
 
 	public void addletter(String letter)
 	{
-		if(currentInput.length() < maxchars)
-		{
-			currentInput = currentInput + "" + letter;
-		}
+		if(letter.charAt(0) >=32 && letter.charAt(0) <= 128)
+			if(currentInput.length() < maxchars)
+				currentInput = currentInput + "" + letter;
 	}
 	public void removeletter()
 	{

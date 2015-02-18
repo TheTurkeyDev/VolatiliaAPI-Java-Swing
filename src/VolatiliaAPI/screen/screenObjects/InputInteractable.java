@@ -24,7 +24,8 @@ public class InputInteractable extends Interactable
 
 	public void addletter(String letter)
 	{
-		currentInput = currentInput + "" + letter;
+		if(letter.charAt(0) >=32 && letter.charAt(0) <= 128)
+			currentInput = currentInput + "" + letter;
 	}
 	public void removeletter()
 	{

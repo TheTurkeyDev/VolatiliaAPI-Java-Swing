@@ -3,11 +3,11 @@ package VolatiliaAPI.graphics;
 public class Font
 {
 
-	private ImageSheet fontSheet;
-	private int offset = 32;
-	private int size;
-	private int incSize;
-	private Image[] letters = new Image[96];
+	protected ImageSheet fontSheet;
+	protected int offset = 32;
+	protected int size;
+	protected int incSize;
+	protected Image[] letters = new Image[96];
 
 	public Font(ImageSheet fs, int s)
 	{
@@ -20,7 +20,7 @@ public class Font
 	/**
 	 * Loads each character from the font sheet and assigns them to an array.
 	 */
-	private void loadCharacters()
+	protected void loadCharacters()
 	{
 		for(int y = 0; y < (fontSheet.getHeight()/size); y++)
 		{

@@ -76,5 +76,17 @@ public class Image
 		}
 		return new Image(pix,w,h);
 	}
+
+	public void switchColor(int oldColor, int newColor)
+	{
+		for(int xx = 0; xx < this.width; xx++)
+		{
+			for(int yy = 0; yy < this.height; yy++)
+			{
+				if(pixels[this.width*yy+xx] == oldColor)
+					pixels[this.width*yy+xx] = newColor;
+			}
+		}
+	}
 	
 }
