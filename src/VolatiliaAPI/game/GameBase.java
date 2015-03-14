@@ -11,7 +11,7 @@ import VolatiliaAPI.screen.ScreenManager;
 import VolatiliaAPI.screen.screenObjects.Tile;
 import VolatiliaAPI.util.Location;
 
-public class Game
+public class GameBase
 {
 	private ArrayList<Entity> entities = new ArrayList<Entity>();
 	private ArrayList<BasicObject> basic = new ArrayList<BasicObject>();
@@ -24,7 +24,7 @@ public class Game
 
 	private int xOffset = 0, yOffset = 0;
 
-	public Game(int w, int h)
+	public GameBase(int w, int h)
 	{
 		width = w;
 		height = h;
@@ -73,15 +73,15 @@ public class Game
 				continue;
 			ent.render();
 			int[] pix = ent.getPixels();
-			for(int x = 0; x < ent.getWidth(); x++)
+			for(int x = 0; x < ent.getImageWidth(); x++)
 			{
-				for(int y = 0; y < ent.getHeight(); y++)
+				for(int y = 0; y < ent.getImageHeight(); y++)
 				{
-					int yy = ((y + ent.getLocation().getY()) - yOffset);
-					int xx = ((x + ent.getLocation().getX()) - xOffset);
-					if(pix[ent.getWidth() * y + x] != ScreenManager.getInstance().getOmmitColor() && yy < height && xx < width)
+					int yy = (((y + ent.getLocation().getY()) - yOffset) - ((ent.getImageHeight() - ent.getHeight()) / 2));
+					int xx = ((x + ent.getLocation().getX()) - xOffset - ((ent.getImageWidth() - ent.getWidth()) / 2));
+					if(pix[ent.getImageWidth() * y + x] != ScreenManager.getInstance().getOmmitColor() && yy < height && xx < width)
 					{
-						pixels[width * yy  + xx] = pix[ent.getWidth() * y + x];
+						pixels[width * yy  + xx] = pix[ent.getImageWidth() * y + x];
 					}
 				}
 			}
@@ -102,6 +102,17 @@ public class Game
 					if (image[x + y * bo.getWidth()] != ScreenManager.getInstance().getOmmitColor())
 						pixels[width * (y + bo.getY()) + (x + bo.getX())] = image[x + y * bo.getWidth()];
 				}
+			}
+		}
+	}
+	
+	public void clearPixels()
+	{
+		for (int y = 0; y < height; y++)
+		{
+			for (int x = 0; x < width; x++)
+			{
+					pixels[width * y + x] = 0x000000;
 			}
 		}
 	}

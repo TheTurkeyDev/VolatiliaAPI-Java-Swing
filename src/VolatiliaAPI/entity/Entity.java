@@ -1,6 +1,6 @@
 package VolatiliaAPI.entity;
 
-import VolatiliaAPI.game.Game;
+import VolatiliaAPI.game.GameBase;
 import VolatiliaAPI.graphics.Image;
 import VolatiliaAPI.util.Location;
 import VolatiliaAPI.util.Location.Direction;
@@ -16,21 +16,24 @@ public abstract class Entity
 	protected Direction facing = Direction.North;
 	protected boolean isMoving = false;
 	protected boolean canMove = true;
-	protected Game game;
+	protected GameBase game;
 	
-	public Entity(Image i, int s, Game g)
+	public Entity(int s, GameBase g)
 	{
-		image = i;
 		width = s;
 		height = s;
 		game = g;
 	}
-	public Entity(Image i, int w, int h, Game g)
+	public Entity(int w, int h, GameBase g)
 	{
-		image = i;
 		width = w;
 		height = h;
 		game = g;
+	}
+	
+	public void setImage(Image image)
+	{
+		this.image = image;
 	}
 	
 	public void update()
@@ -76,6 +79,15 @@ public abstract class Entity
 	public int getHeight()
 	{
 		return height;
+	}
+	
+	public int getImageWidth()
+	{
+		return image.getWidth();
+	}
+	public int getImageHeight()
+	{
+		return image.getHeight();
 	}
 	
 	public void stop()

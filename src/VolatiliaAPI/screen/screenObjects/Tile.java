@@ -1,11 +1,14 @@
 package VolatiliaAPI.screen.screenObjects;
 
 import VolatiliaAPI.graphics.Image;
+import VolatiliaAPI.map.Map;
+import VolatiliaAPI.util.Location;
 
 public class Tile
 {
 	public static int SIZE = 32;
 	protected int id;
+	protected short meta = 0;
 	protected String colorID;
 	protected String name;
 	protected Image image;
@@ -14,12 +17,16 @@ public class Tile
 	
 	protected boolean isVisible = true;
 	
-	public Tile(Image img, String n, int id, String hex)
+	public Tile(String n, int id, String hex)
 	{
-		image = img;
 		name = n;
 		this.id = id;
 		colorID = hex;
+	}
+	
+	public void setImage(Image image)
+	{
+		this.image = image;
 	}
 	
 	public void render(int x, int y)
@@ -27,7 +34,7 @@ public class Tile
 		
 	}
 	
-	public void update()
+	public void update(Map map, Location loc)
 	{
 		
 	}
@@ -53,6 +60,15 @@ public class Tile
 	}
 	
 	public int getID()
+	{
+		return id;
+	}
+	
+	public void setMeta(short m)
+	{
+		meta = m;
+	}
+	public int getMeta()
 	{
 		return id;
 	}
