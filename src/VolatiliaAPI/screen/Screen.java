@@ -178,7 +178,6 @@ public class Screen
 					{
 						if (pix[w * yLoc + xLoc] != ScreenManager.getInstance().getOmmitColor())
 						{
-							System.out.println(pix[w * yLoc + xLoc]);
 							pixels[width * (t.getLocation().getY() + yLoc) + (t.getLocation().getX() + (xLoc + (w * i)))] = pix[w * yLoc + xLoc];
 						}
 					}
