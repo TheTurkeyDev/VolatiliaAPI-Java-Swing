@@ -1,7 +1,6 @@
 package VolatiliaAPI.map;
 
 import VolatiliaAPI.graphics.Image;
-import VolatiliaAPI.screen.ScreenManager;
 import VolatiliaAPI.screen.screenObjects.Tile;
 import VolatiliaAPI.util.Location;
 
@@ -20,15 +19,13 @@ public class MapLoader
 		int h = mapImage.getHeight();
 		
 		Map map = new Map(w*Tile.SIZE, h*Tile.SIZE);
-		ScreenManager sm = ScreenManager.getInstance();
+		MapManager mm = MapManager.instance;
 		
 		int[] pix = mapImage.getPixels();
 		
 		for(int x = 0; x < w; x++)
 			for(int y = 0; y < h; y++)
-			{
-				map.setTileAt(new Location(x,y), sm.getTileFromColorCode(Integer.toHexString(pix[w * y + x]).substring(2)));
-			}
+				map.setTileAt(new Location(x,y), mm.getTileFromColorCode(Integer.toHexString(pix[w * y + x]).substring(2)));
 		return map;
 	}
 	

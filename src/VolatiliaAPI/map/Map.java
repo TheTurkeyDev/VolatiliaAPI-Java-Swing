@@ -1,13 +1,14 @@
 package VolatiliaAPI.map;
 
 import VolatiliaAPI.main.APIMain;
-import VolatiliaAPI.screen.ScreenManager;
 import VolatiliaAPI.screen.screenObjects.Tile;
 import VolatiliaAPI.util.Location;
 
 public class Map
 {
-	private int[] tiles;
+	private int[] map;
+	
+	private boolean update = false;
 
 	private int[] pix;
 
@@ -19,7 +20,7 @@ public class Map
 	{
 		width = xs;
 		height = ys;
-		tiles = new int[(width/Tile.SIZE) * (height/Tile.SIZE)];
+		map = new int[(width/Tile.SIZE) * (height/Tile.SIZE)];
 	}
 
 	public int[] render(int xOffset, int yOffset, int w, int h)
@@ -28,11 +29,11 @@ public class Map
 		{
 			return null;
 		}
-		if(!APIMain.getAPI().renderMapOnce || pix == null)
+		if(!APIMain.getAPI().renderMapOnce || pix == null || update)
 		{
 			pix = new int[w * h];
-			ScreenManager sm = ScreenManager.getInstance();
-			Tile tilevoid = sm.getTileFromID(0);
+			MapManager mm = MapManager.instance;
+			Tile tilevoid = mm.getTileFromID(0);
 			Tile currentTile = tilevoid;
 			int[] currentPixels = currentTile.getPixels();
 			for(int x = xOffset; x < w + xOffset; x++)
@@ -41,9 +42,9 @@ public class Map
 				{
 					int xx = (x - xOffset);
 					int yy = (y - yOffset);
-					if(currentTile != sm.getTileFromID(tiles[(width/Tile.SIZE) * (int)(yy / Tile.SIZE) + (int)(xx / Tile.SIZE)]))
+					if(currentTile != mm.getTileFromID(map[(width/Tile.SIZE) * (int)(yy / Tile.SIZE) + (int)(xx / Tile.SIZE)]))
 					{
-						currentTile = sm.getTileFromID(tiles[(width/Tile.SIZE) * (int)(yy / Tile.SIZE) + (int)(xx / Tile.SIZE)]);
+						currentTile = mm.getTileFromID(map[(width/Tile.SIZE) * (int)(yy / Tile.SIZE) + (int)(xx / Tile.SIZE)]);
 						currentPixels = currentTile.getPixels();
 					}
 					if(xx > width || yy > height)
@@ -56,6 +57,7 @@ public class Map
 					}
 				}
 			}
+			update = false;
 		}
 		return pix.clone();
 	}
@@ -67,12 +69,13 @@ public class Map
 
 	public void setTileAt(Location loc, Tile tile)
 	{
-		tiles[(width/Tile.SIZE) * loc.getY() + loc.getX()] = tile.getID();
+		map[(width/Tile.SIZE) * loc.getY() + loc.getX()] = tile.getID();
+		update = true;
 	}
 
 	public Tile getTileAt(Location loc)
 	{
-		return ScreenManager.getInstance().getTileFromID(tiles[(width/Tile.SIZE) * loc.getY() + loc.getX()]);
+		return MapManager.instance.getTileFromID(map[(width/Tile.SIZE) * loc.getY() + loc.getX()]);
 	}
 
 	public void generate()

@@ -2,8 +2,6 @@ package VolatiliaAPI.screen;
 
 import java.util.ArrayList;
 
-import VolatiliaAPI.screen.screenObjects.Tile;
-
 
 public class ScreenManager
 {
@@ -11,7 +9,7 @@ public class ScreenManager
 	private static ScreenManager sm;
 
 	private ArrayList<Screen> screens = new ArrayList<Screen>();
-	private ArrayList<Tile> tiles = new ArrayList<Tile>();
+
 	
 	private int ommitColor = 0x000000;
 
@@ -67,27 +65,6 @@ public class ScreenManager
 				return s;
 			}
 		}
-		return null;
-	}
-
-	public void addTile(Tile tile)
-	{
-		tiles.add(tile);
-	}
-	
-	public Tile getTileFromID(int id)
-	{
-		for(Tile t: tiles)
-			if(t.getID() == id)
-				return t;
-		return null;
-	}
-	
-	public Tile getTileFromColorCode(String code)
-	{
-		for(Tile t: tiles)
-			if(t.getColorCode().equalsIgnoreCase(code))
-				return t;
 		return null;
 	}
 	

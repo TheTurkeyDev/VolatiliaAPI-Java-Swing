@@ -13,6 +13,7 @@ import VolatiliaAPI.graphics.DefaultFont;
 import VolatiliaAPI.listeners.KeyListener;
 import VolatiliaAPI.listeners.MouseListener;
 import VolatiliaAPI.listeners.MouseMotionListener;
+import VolatiliaAPI.map.MapManager;
 import VolatiliaAPI.screen.ScreenManager;
 
 public class APIMain extends Canvas implements Runnable
@@ -24,6 +25,7 @@ public class APIMain extends Canvas implements Runnable
 	private JFrame frame;
 
 	public static int width, height;
+	private int scale = 1;
 
 	private Thread thread;
 
@@ -35,40 +37,44 @@ public class APIMain extends Canvas implements Runnable
 	public boolean rendercheck = false;
 	public long renderStart;
 	public long lastrenderLength = 0;
-	
+
 	public boolean renderMapOnce = false;
 
 	private BufferedImage image;
 	private int[] pixels;
 
 	private ScreenManager sm;
+	private MapManager mm;
 
 	private int gFrames = 0;
 	private int gUpdates = 0;
+
+	private boolean displayFPS = false;
 
 	public APIMain(String name)
 	{
 		frameName = name;
 		sm = new ScreenManager();
+		mm = new MapManager();
 		new DefaultFont();
 		addKeyListener(new KeyListener());
 		addMouseListener(new MouseListener());
 		addMouseMotionListener(new MouseMotionListener());
 		api = this;
 	}
-	
+
 	public void setDisplay(Display display)
 	{
 		frame = display;
 		width = display.getWidth();
 		height = display.getHeight();
-		
+
 		Dimension size = new Dimension(width, height);
 		setPreferredSize(size);
 		setFocusable(true);
 		requestFocusInWindow();
 		display.add(this);
-		
+
 		image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
 		pixels = ((DataBufferInt)image.getRaster().getDataBuffer()).getData();
 	}
@@ -109,7 +115,7 @@ public class APIMain extends Canvas implements Runnable
 				delta--;
 			}
 			try{
-			render();
+				render();
 			}catch(IllegalStateException e){System.err.println("No Display is Set!!");}
 			frames++;
 
@@ -168,7 +174,10 @@ public class APIMain extends Canvas implements Runnable
 			}
 		}
 
-		frame.setTitle(frameName);
+		if(displayFPS)
+			frame.setTitle(frameName + ":" + this.getFPS());
+		else
+			frame.setTitle(frameName);
 		Graphics g = strat.getDrawGraphics();
 		g.drawImage(image, 0, 0, getWidth(), getHeight(), null);
 		g.dispose();
@@ -180,6 +189,11 @@ public class APIMain extends Canvas implements Runnable
 	{
 		return sm;
 	}
+	
+	public MapManager getMapManager()
+	{
+		return mm;
+	}
 
 	public static APIMain getAPI()
 	{
@@ -190,12 +204,12 @@ public class APIMain extends Canvas implements Runnable
 	{
 		rendercheck = true;
 	}
-	
+
 	public void renderMapOnce()
 	{
 		renderMapOnce = true;
 	}
-	
+
 	public int getFPS()
 	{
 		return gFrames;
@@ -204,9 +218,24 @@ public class APIMain extends Canvas implements Runnable
 	{
 		return gUpdates;
 	}
-	
+
 	public void setTitle(String title)
 	{
 		frameName = title;
+	}
+
+	public void displayFPS()
+	{
+		displayFPS = true;
+	}
+
+	public int getScale()
+	{
+		return scale;
+	}
+
+	public void setScale(int scale)
+	{
+		this.scale = scale;
 	}
 }
