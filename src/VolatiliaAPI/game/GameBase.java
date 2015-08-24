@@ -7,8 +7,8 @@ import VolatiliaAPI.entity.Entity;
 import VolatiliaAPI.graphics.basic.BasicObject;
 import VolatiliaAPI.graphics.basic.Rectangle;
 import VolatiliaAPI.map.Map;
+import VolatiliaAPI.map.Tile;
 import VolatiliaAPI.screen.ScreenManager;
-import VolatiliaAPI.screen.screenObjects.Tile;
 import VolatiliaAPI.util.Location;
 
 public class GameBase

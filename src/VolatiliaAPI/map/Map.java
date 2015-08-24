@@ -1,7 +1,6 @@
 package VolatiliaAPI.map;
 
 import VolatiliaAPI.main.APIMain;
-import VolatiliaAPI.screen.screenObjects.Tile;
 import VolatiliaAPI.util.Location;
 
 public class Map

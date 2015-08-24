@@ -1,7 +1,6 @@
-package VolatiliaAPI.screen.screenObjects;
+package VolatiliaAPI.map;
 
 import VolatiliaAPI.graphics.Image;
-import VolatiliaAPI.map.Map;
 import VolatiliaAPI.util.Location;
 
 public class Tile

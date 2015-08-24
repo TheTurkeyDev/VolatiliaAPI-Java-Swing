@@ -2,8 +2,6 @@ package VolatiliaAPI.map;
 
 import java.util.ArrayList;
 
-import VolatiliaAPI.screen.screenObjects.Tile;
-
 public class MapManager
 {
 	private ArrayList<Tile> tiles = new ArrayList<Tile>();
